@@ -1,0 +1,1101 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python教程,Python入门," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Python之什么是dict我们已经知道，list 和 tuple 可以用来表示顺序集合，例如，班里同学的名字： 1[&amp;apos;Adam&amp;apos;, &amp;apos;Lisa&amp;apos;, &amp;apos;Bart&amp;apos;] 或者考试的成绩列表： 1[95, 85, 59] 但是，要根据名字找到对应的成绩，用两个 list 表示就不方便。">
+<meta name="keywords" content="Python教程,Python入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第5章 Dict和Set类型">
+<meta property="og:url" content="http://shijiacheng.studio/2017/06/18/python-junior-5/index.html">
+<meta property="og:site_name" content="shijiacheng&#39;s blog">
+<meta property="og:description" content="Python之什么是dict我们已经知道，list 和 tuple 可以用来表示顺序集合，例如，班里同学的名字： 1[&amp;apos;Adam&amp;apos;, &amp;apos;Lisa&amp;apos;, &amp;apos;Bart&amp;apos;] 或者考试的成绩列表： 1[95, 85, 59] 但是，要根据名字找到对应的成绩，用两个 list 表示就不方便。">
+<meta property="og:updated_time" content="2017-06-18T09:22:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第5章 Dict和Set类型">
+<meta name="twitter:description" content="Python之什么是dict我们已经知道，list 和 tuple 可以用来表示顺序集合，例如，班里同学的名字： 1[&amp;apos;Adam&amp;apos;, &amp;apos;Lisa&amp;apos;, &amp;apos;Bart&amp;apos;] 或者考试的成绩列表： 1[95, 85, 59] 但是，要根据名字找到对应的成绩，用两个 list 表示就不方便。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shijiacheng.studio/2017/06/18/python-junior-5/"/>
+
+
+
+
+
+  <title>第5章 Dict和Set类型 | shijiacheng's blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0025c4e3ea66bbbea3ea718610460fe7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=57178270";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">shijiacheng's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://shijiacheng.studio/2017/06/18/python-junior-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shijiacheng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://7xqgfg.com1.z0.glb.clouddn.com/1467087348445.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shijiacheng's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第5章 Dict和Set类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-18T17:17:02+08:00">
+                2017-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python入门/" itemprop="url" rel="index">
+                    <span itemprop="name">Python入门</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/06/18/python-junior-5/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/18/python-junior-5/" class="leancloud_visitors" data-flag-title="第5章 Dict和Set类型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Python之什么是dict"><a href="#Python之什么是dict" class="headerlink" title="Python之什么是dict"></a>Python之什么是dict</h2><p>我们已经知道，list 和 tuple 可以用来表示顺序集合，例如，班里同学的名字：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[&apos;Adam&apos;, &apos;Lisa&apos;, &apos;Bart&apos;]</div></pre></td></tr></table></figure>
+<p>或者考试的成绩列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[95, 85, 59]</div></pre></td></tr></table></figure>
+<p>但是，要根据名字找到对应的成绩，用两个 list 表示就不方便。</p>
+<a id="more"></a>
+<p>如果把名字和分数关联起来，组成类似的查找表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&apos;Adam&apos; ==&gt; 95</div><div class="line">&apos;Lisa&apos; ==&gt; 85</div><div class="line">&apos;Bart&apos; ==&gt; 59</div></pre></td></tr></table></figure>
+<p>给定一个名字，就可以直接查到分数。</p>
+<p>Python的 dict 就是专门干这件事的。用 <strong>dict </strong>表示<strong>“名字”-“成绩”</strong>的查找表如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    &apos;Adam&apos;: 95,</div><div class="line">    &apos;Lisa&apos;: 85,</div><div class="line">    &apos;Bart&apos;: 59</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们把<strong>名字称为key</strong>，对应的<strong>成绩称为value</strong>，dict就是通过 <strong>key</strong> 来查找 <strong>value</strong>。</p>
+<p>花括号 {} 表示这是一个dict，然后按照<strong>key: value</strong>, 写出来即可。最后一个 key: value 的逗号可以省略。</p>
+<p>由于dict也是集合，len() 函数可以计算任意集合的大小：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; len(d)</div><div class="line">3</div></pre></td></tr></table></figure>
+<p><strong>注意:</strong> 一个 key-value 算一个，因此，dict大小为3。</p>
+<h2 id="Python之访问dict"><a href="#Python之访问dict" class="headerlink" title="Python之访问dict"></a>Python之访问dict</h2><p>我们已经能创建一个dict，用于表示名字和成绩的对应关系：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    &apos;Adam&apos;: 95,</div><div class="line">    &apos;Lisa&apos;: 85,</div><div class="line">    &apos;Bart&apos;: 59</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>那么，如何根据名字来查找对应的成绩呢？</p>
+<p>可以简单地使用 d[key] 的形式来查找对应的 value，这和 list 很像，不同之处是，<strong>list 必须使用索引返回对应的元素，而dict使用key：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print d[&apos;Adam&apos;]</div><div class="line">95</div><div class="line">&gt;&gt;&gt; print d[&apos;Paul&apos;]</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;index.py&quot;, line 11, in &lt;module&gt;</div><div class="line">    print d[&apos;Paul&apos;]</div><div class="line">KeyError: &apos;Paul&apos;</div></pre></td></tr></table></figure>
+<p><strong>注意:</strong> 通过 key 访问 dict 的value，只要 key 存在，dict就返回对应的value。如果key不存在，会直接报错：KeyError。</p>
+<p>要避免 KeyError 发生，有两个办法：</p>
+<p><strong>一是先判断一下 key 是否存在，用 in 操作符：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if &apos;Paul&apos; in d:</div><div class="line">    print d[&apos;Paul&apos;]</div></pre></td></tr></table></figure>
+<p>如果 ‘Paul’ 不存在，if语句判断为False，自然不会执行 print d[‘Paul’] ，从而避免了错误。</p>
+<p><strong>二是使用dict本身提供的一个 get 方法，在Key不存在的时候，返回None：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print d.get(&apos;Bart&apos;)</div><div class="line">59</div><div class="line">&gt;&gt;&gt; print d.get(&apos;Paul&apos;)</div><div class="line">None</div></pre></td></tr></table></figure>
+<h2 id="Python中dict的特点"><a href="#Python中dict的特点" class="headerlink" title="Python中dict的特点"></a>Python中dict的特点</h2><p><strong>dict的第一个特点是查找速度快，无论dict有10个元素还是10万个元素，查找速度都一样</strong>。而list的查找速度随着元素增加而逐渐下降。</p>
+<p>不过dict的查找速度快不是没有代价的，<strong>dict的缺点是占用内存大，还会浪费很多内容</strong>，list正好相反，占用内存小，但是查找速度慢。</p>
+<p>由于dict是按 key 查找，所以，在一个dict中，key不能重复。</p>
+<p><strong>dict的第二个特点就是存储的key-value序对是没有顺序的！</strong>这和list不一样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    &apos;Adam&apos;: 95,</div><div class="line">    &apos;Lisa&apos;: 85,</div><div class="line">    &apos;Bart&apos;: 59</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当我们试图打印这个dict时：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print d</div><div class="line">&#123;&apos;Lisa&apos;: 85, &apos;Adam&apos;: 95, &apos;Bart&apos;: 59&#125;</div></pre></td></tr></table></figure>
+<p>打印的顺序不一定是我们创建时的顺序，而且，不同的机器打印的顺序都可能不同，这说明dict内部是<strong>无序</strong>的，不能用dict存储有序的集合。</p>
+<p><strong>dict的第三个特点是作为 key 的元素必须不可变</strong>，Python的基本类型如字符串、整数、浮点数都是不可变的，都可以作为 key。但是list是可变的，就不能作为 key。</p>
+<p>可以试试用list作为key时会报什么样的错误。</p>
+<p>不可变这个限制仅作用于key，value是否可变无所谓：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &apos;123&apos;: [1, 2, 3],  # key 是 str，value是list</div><div class="line">    123: &apos;123&apos;,  # key 是 int，value 是 str</div><div class="line">    (&apos;a&apos;, &apos;b&apos;): True  # key 是 tuple，并且tuple的每个元素都是不可变对象，value是 boolean</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最常用的key还是字符串，因为用起来最方便。</p>
+<h2 id="Python更新dict"><a href="#Python更新dict" class="headerlink" title="Python更新dict"></a>Python更新dict</h2><p>dict是可变的，也就是说，我们可以随时往dict中添加新的 key-value。比如已有dict：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    &apos;Adam&apos;: 95,</div><div class="line">    &apos;Lisa&apos;: 85,</div><div class="line">    &apos;Bart&apos;: 59</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>要把新同学’Paul’的成绩 72 加进去，用赋值语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; d[&apos;Paul&apos;] = 72</div></pre></td></tr></table></figure>
+<p>再看看dict的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print d</div><div class="line">&#123;&apos;Lisa&apos;: 85, &apos;Paul&apos;: 72, &apos;Adam&apos;: 95, &apos;Bart&apos;: 59&#125;</div></pre></td></tr></table></figure>
+<p>如果 key 已经存在，则赋值会用新的 value 替换掉原来的 value：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; d[&apos;Bart&apos;] = 60</div><div class="line">&gt;&gt;&gt; print d</div><div class="line">&#123;&apos;Lisa&apos;: 85, &apos;Paul&apos;: 72, &apos;Adam&apos;: 95, &apos;Bart&apos;: 60&#125;</div></pre></td></tr></table></figure>
+<h2 id="Python之-遍历dict"><a href="#Python之-遍历dict" class="headerlink" title="Python之 遍历dict"></a>Python之 遍历dict</h2><p>由于dict也是一个集合，所以，遍历dict和遍历list类似，都可以通过 for 循环实现。</p>
+<p>直接使用for循环可以遍历 dict 的 key：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; d = &#123; &apos;Adam&apos;: 95, &apos;Lisa&apos;: 85, &apos;Bart&apos;: 59 &#125;</div><div class="line">&gt;&gt;&gt; for key in d:</div><div class="line">...     print key</div><div class="line">... </div><div class="line">Lisa</div><div class="line">Adam</div><div class="line">Bart</div></pre></td></tr></table></figure>
+<p>由于通过 key 可以获取对应的 value，因此，在循环体内，可以获取到value的值。</p>
+<h2 id="Python中什么是set"><a href="#Python中什么是set" class="headerlink" title="Python中什么是set"></a>Python中什么是set</h2><p><strong>dict的作用是建立一组 key 和一组 value 的映射关系，dict的key是不能重复的。</strong></p>
+<p>有的时候，我们只想要 dict 的 key，不关心 key 对应的 value，目的就是保证这个集合的元素不会重复，这时，set就派上用场了。</p>
+<p><strong>set 持有一系列元素，这一点和 list 很像，但是set的元素没有重复，而且是无序的，这点和 dict 的 key很像。</strong></p>
+<p>创建 set 的方式是调用 set() 并传入一个 list，list的元素将作为set的元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = set([&apos;A&apos;, &apos;B&apos;, &apos;C&apos;])</div></pre></td></tr></table></figure>
+<p>可以查看 set 的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print s</div><div class="line">set([&apos;A&apos;, &apos;C&apos;, &apos;B&apos;])</div></pre></td></tr></table></figure>
+<p><strong>请注意</strong>，上述打印的形式类似 list， 但它不是 list，仔细看还可以发现，打印的顺序和原始 list 的顺序有可能是不同的，因为set内部存储的元素是<strong>无序</strong>的。</p>
+<p>因为set不能包含重复的元素，所以，当我们传入包含重复元素的 list 会怎么样呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = set([&apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;C&apos;])</div><div class="line">&gt;&gt;&gt; print s</div><div class="line">set([&apos;A&apos;, &apos;C&apos;, &apos;B&apos;])</div><div class="line">&gt;&gt;&gt; len(s)</div><div class="line">3</div></pre></td></tr></table></figure>
+<p>结果显示，set会自动去掉重复的元素，原来的list有4个元素，但set只有3个元素。</p>
+<h2 id="Python之-访问set"><a href="#Python之-访问set" class="headerlink" title="Python之 访问set"></a>Python之 访问set</h2><p>由于<strong>set存储的是无序集合</strong>，所以我们没法通过索引来访问。</p>
+<p>访问 set中的某个元素实际上就是判断一个元素是否在set中。</p>
+<p>例如，存储了班里同学名字的set：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = set([&apos;Adam&apos;, &apos;Lisa&apos;, &apos;Bart&apos;, &apos;Paul&apos;])</div></pre></td></tr></table></figure>
+<p>我们可以用 in 操作符判断：</p>
+<p>Bart是该班的同学吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; &apos;Bart&apos; in s</div><div class="line">True</div></pre></td></tr></table></figure>
+<p>Bill是该班的同学吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; &apos;Bill&apos; in s</div><div class="line">False</div></pre></td></tr></table></figure>
+<p>bart是该班的同学吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; &apos;bart&apos; in s</div><div class="line">False</div></pre></td></tr></table></figure>
+<p>看来大小写很重要，’Bart’ 和 ‘bart’被认为是两个不同的元素。</p>
+<h2 id="Python之-set的特点"><a href="#Python之-set的特点" class="headerlink" title="Python之 set的特点"></a>Python之 set的特点</h2><p><strong>set的内部结构和dict很像，唯一区别是不存储value</strong>，因此，判断一个元素是否在set中速度很快。</p>
+<p><strong>set存储的元素和dict的key类似，必须是不变对象</strong>，因此，任何可变对象是不能放入set中的。</p>
+<p>最后，set存储的元素也是没有顺序的。</p>
+<p>set的这些特点，可以应用在哪些地方呢？</p>
+<p>星期一到星期日可以用字符串’MON’, ‘TUE’, … ‘SUN’表示。</p>
+<p>假设我们让用户输入星期一至星期日的某天，如何判断用户的输入是否是一个有效的星期呢？</p>
+<p>可以用<strong> if 语句</strong>判断，但这样做非常繁琐：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">x = &apos;???&apos; # 用户输入的字符串</div><div class="line">if x!= &apos;MON&apos; and x!= &apos;TUE&apos; and x!= &apos;WED&apos; ... and x!= &apos;SUN&apos;:</div><div class="line">    print &apos;input error&apos;</div><div class="line">else:</div><div class="line">    print &apos;input ok&apos;</div></pre></td></tr></table></figure>
+<p><strong>注意：</strong>if 语句中的…表示没有列出的其它星期名称，测试时，请输入完整。</p>
+<p>如果事先创建好一个set，包含’MON’ ~ ‘SUN’：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">weekdays = set([&apos;MON&apos;, &apos;TUE&apos;, &apos;WED&apos;, &apos;THU&apos;, &apos;FRI&apos;, &apos;SAT&apos;, &apos;SUN&apos;])</div></pre></td></tr></table></figure>
+<p>再判断输入是否有效，只需要判断该字符串是否在set中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">x = &apos;???&apos; # 用户输入的字符串</div><div class="line">if x in weekdays:</div><div class="line">    print &apos;input ok&apos;</div><div class="line">else:</div><div class="line">    print &apos;input error&apos;</div></pre></td></tr></table></figure>
+<p>这样一来，代码就简单多了。</p>
+<h2 id="Python之-遍历set"><a href="#Python之-遍历set" class="headerlink" title="Python之 遍历set"></a>Python之 遍历set</h2><p>由于 set 也是一个集合，所以，遍历 set 和遍历 list 类似，都可以通过 for 循环实现。</p>
+<p>直接使用 for 循环可以遍历 set 的元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = set([&apos;Adam&apos;, &apos;Lisa&apos;, &apos;Bart&apos;])</div><div class="line">&gt;&gt;&gt; for name in s:</div><div class="line">...     print name</div><div class="line">... </div><div class="line">Lisa</div><div class="line">Adam</div><div class="line">Bart</div></pre></td></tr></table></figure>
+<p><strong>注意: </strong>观察 for 循环在遍历set时，元素的顺序和list的顺序很可能是不同的，而且不同的机器上运行的结果也可能不同。</p>
+<h2 id="Python之-更新set"><a href="#Python之-更新set" class="headerlink" title="Python之 更新set"></a>Python之 更新set</h2><p>由于<strong>set存储的是一组不重复的无序元素</strong>，因此，更新set主要做两件事：</p>
+<p><strong>一是把新的元素添加到set中，二是把已有元素从set中删除。</strong></p>
+<p>添加元素时，用set的add()方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = set([1, 2, 3])</div><div class="line">&gt;&gt;&gt; s.add(4)</div><div class="line">&gt;&gt;&gt; print s</div><div class="line">set([1, 2, 3, 4])</div></pre></td></tr></table></figure>
+<p>如果添加的元素已经存在于set中，add()不会报错，但是不会加进去了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = set([1, 2, 3])</div><div class="line">&gt;&gt;&gt; s.add(3)</div><div class="line">&gt;&gt;&gt; print s</div><div class="line">set([1, 2, 3])</div></pre></td></tr></table></figure>
+<p>删除set中的元素时，用set的remove()方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = set([1, 2, 3, 4])</div><div class="line">&gt;&gt;&gt; s.remove(4)</div><div class="line">&gt;&gt;&gt; print s</div><div class="line">set([1, 2, 3])</div></pre></td></tr></table></figure>
+<p>如果删除的元素不存在set中，remove()会报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; s = set([1, 2, 3])</div><div class="line">&gt;&gt;&gt; s.remove(4)</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</div><div class="line">KeyError: 4</div></pre></td></tr></table></figure>
+<p>所以用add()可以直接添加，而remove()前需要判断。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      shijiacheng
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://shijiacheng.studio/2017/06/18/python-junior-5/" title="第5章 Dict和Set类型">http://shijiacheng.studio/2017/06/18/python-junior-5/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均为原创文章。请尊重劳动成果，转载注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python教程/" rel="tag"># Python教程</a>
+          
+            <a href="/tags/Python入门/" rel="tag"># Python入门</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/18/python-junior-4/" rel="next" title="第4章 条件判断和循环">
+                <i class="fa fa-chevron-left"></i> 第4章 条件判断和循环
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqgfg.com1.z0.glb.clouddn.com/1467087348445.jpg"
+               alt="shijiacheng" />
+          <p class="site-author-name" itemprop="name">shijiacheng</p>
+           
+              <p class="site-description motion-element" itemprop="description">我的小小窝，在这里书写点点滴滴。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shijiacheng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2787794175" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.baidu.com/" title="Title" target="_blank">Title</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之什么是dict"><span class="nav-number">1.</span> <span class="nav-text">Python之什么是dict</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之访问dict"><span class="nav-number">2.</span> <span class="nav-text">Python之访问dict</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python中dict的特点"><span class="nav-number">3.</span> <span class="nav-text">Python中dict的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python更新dict"><span class="nav-number">4.</span> <span class="nav-text">Python更新dict</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之-遍历dict"><span class="nav-number">5.</span> <span class="nav-text">Python之 遍历dict</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python中什么是set"><span class="nav-number">6.</span> <span class="nav-text">Python中什么是set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之-访问set"><span class="nav-number">7.</span> <span class="nav-text">Python之 访问set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之-set的特点"><span class="nav-number">8.</span> <span class="nav-text">Python之 set的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之-遍历set"><span class="nav-number">9.</span> <span class="nav-text">Python之 遍历set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之-更新set"><span class="nav-number">10.</span> <span class="nav-text">Python之 更新set</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  Copyright &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span>by Jiacheng Shi. All rights reserved.</span>
+</div>
+
+
+<div class="powered-by">
+  Design by Hexo.
+</div>
+
+<div class="theme-info">
+  Powered by Github | Alibaba Wanwang.
+</div>
+<div>
+  <span>版权声明：凡注明本站原创文章等，未经本人许可，任何人或机构不得以任何形式对本站内容进行商业用途.</span>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "2c07f26f84fa4f65abbbe6ea2d33d6e5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("KAYlnwDWxRnTAKYqjlglgybM-gzGzoHsz", "2L4S8ChpDcRgiM5oUSMhxPvY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <a href="https://github.com/shijiacheng" target="_blank">
+    <img style="position: absolute; top: 0; right: 0; border: 0;"
+       src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+       alt="Fork me on GitHub"
+       data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+  </a>
+
+</body>
+</html>
