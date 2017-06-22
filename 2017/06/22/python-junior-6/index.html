@@ -1,0 +1,1097 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python教程,Python入门," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Python之什么是函数我们知道圆的面积计算公式为： 1S = πr² 当我们知道半径r的值时，就可以根据公式计算出面积。假设我们需要计算3个不同大小的圆的面积： 123456r1 = 12.34r2 = 9.08r3 = 73.1s1 = 3.14 * r1 * r1s2 = 3.14 * r2 * r2s3 = 3.14 * r3 * r3 当代码出现有规律的重复的时候，你就需要当心了，每次写">
+<meta name="keywords" content="Python教程,Python入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第6章 函数">
+<meta property="og:url" content="http://shijiacheng.studio/2017/06/22/python-junior-6/index.html">
+<meta property="og:site_name" content="shijiacheng&#39;s blog">
+<meta property="og:description" content="Python之什么是函数我们知道圆的面积计算公式为： 1S = πr² 当我们知道半径r的值时，就可以根据公式计算出面积。假设我们需要计算3个不同大小的圆的面积： 123456r1 = 12.34r2 = 9.08r3 = 73.1s1 = 3.14 * r1 * r1s2 = 3.14 * r2 * r2s3 = 3.14 * r3 * r3 当代码出现有规律的重复的时候，你就需要当心了，每次写">
+<meta property="og:updated_time" content="2017-06-22T12:47:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第6章 函数">
+<meta name="twitter:description" content="Python之什么是函数我们知道圆的面积计算公式为： 1S = πr² 当我们知道半径r的值时，就可以根据公式计算出面积。假设我们需要计算3个不同大小的圆的面积： 123456r1 = 12.34r2 = 9.08r3 = 73.1s1 = 3.14 * r1 * r1s2 = 3.14 * r2 * r2s3 = 3.14 * r3 * r3 当代码出现有规律的重复的时候，你就需要当心了，每次写">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shijiacheng.studio/2017/06/22/python-junior-6/"/>
+
+
+
+
+
+  <title>第6章 函数 | shijiacheng's blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0025c4e3ea66bbbea3ea718610460fe7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=57178270";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">shijiacheng's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://shijiacheng.studio/2017/06/22/python-junior-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shijiacheng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://7xqgfg.com1.z0.glb.clouddn.com/1467087348445.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shijiacheng's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第6章 函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-22T20:44:41+08:00">
+                2017-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python入门/" itemprop="url" rel="index">
+                    <span itemprop="name">Python入门</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/06/22/python-junior-6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/22/python-junior-6/" class="leancloud_visitors" data-flag-title="第6章 函数">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Python之什么是函数"><a href="#Python之什么是函数" class="headerlink" title="Python之什么是函数"></a>Python之什么是函数</h2><p>我们知道圆的面积计算公式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">S = πr²</div></pre></td></tr></table></figure>
+<p>当我们知道半径r的值时，就可以根据公式计算出面积。假设我们需要计算3个不同大小的圆的面积：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">r1 = 12.34</div><div class="line">r2 = 9.08</div><div class="line">r3 = 73.1</div><div class="line">s1 = 3.14 * r1 * r1</div><div class="line">s2 = 3.14 * r2 * r2</div><div class="line">s3 = 3.14 * r3 * r3</div></pre></td></tr></table></figure>
+<p>当代码出现有规律的重复的时候，你就需要当心了，每次写3.14 <em> x </em> x不仅很麻烦，而且，如果要把3.14改成3.14159265359的时候，得全部替换。</p>
+<a id="more"></a>
+<p>有了函数，我们就不再每次写s = 3.14 <em> x </em> x，而是写成更有意义的函数调用 <code>s = area_of_circle(x)</code>，而函数 area_of_circle 本身只需要写一次，就可以多次调用。</p>
+<p><strong>抽象</strong>是数学中非常常见的概念。举个例子：</p>
+<p>计算数列的和，比如：<strong>1 + 2 + 3 + … + 100</strong>，写起来十分不方便，于是数学家发明了求和符号∑，可以把1 + 2 + 3 + … + 100记作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">100</div><div class="line">∑n</div><div class="line">n=1</div></pre></td></tr></table></figure>
+<p>这种抽象记法非常强大，因为我们看到∑就可以理解成求和，而不是还原成低级的加法运算。</p>
+<p>而且，这种抽象记法是可扩展的，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">100</div><div class="line">∑(n²+1)</div><div class="line">n=1</div></pre></td></tr></table></figure>
+<p>还原成加法运算就变成了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(1 x 1 + 1) + (2 x 2 + 1) + (3 x 3 + 1) + ... + (100 x 100 + 1)</div></pre></td></tr></table></figure>
+<p>可见，借助抽象，我们才能不关心底层的具体计算过程，而直接在更高的层次上思考问题。</p>
+<p>写计算机程序也是一样，函数就是最基本的一种代码抽象的方式。</p>
+<p>Python不但能非常灵活地定义函数，而且本身内置了很多有用的函数，可以直接调用。</p>
+<h2 id="Python之调用函数"><a href="#Python之调用函数" class="headerlink" title="Python之调用函数"></a>Python之调用函数</h2><p>Python内置了很多有用的函数，我们可以直接调用。</p>
+<p>要调用一个函数，需要知道<strong>函数</strong>的<strong>名称</strong>和<strong>参数</strong>，比如求绝对值的函数 abs，它接收一个参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">可以直接从Python的官方网站查看文档：</div><div class="line">http://docs.python.org/2/library/functions.html#abs</div></pre></td></tr></table></figure>
+<p>也可以在交互式命令行通过 help(abs) 查看abs函数的帮助信息。</p>
+<p>调用 <strong>abs </strong>函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; abs(100)</div><div class="line">100</div><div class="line">&gt;&gt;&gt; abs(-20)</div><div class="line">20</div><div class="line">&gt;&gt;&gt; abs(12.34)</div><div class="line">12.34</div></pre></td></tr></table></figure>
+<p>调用函数的时候，如果传入的参数数量不对，会报<strong>TypeError</strong>的错误，并且Python会明确地告诉你：abs()有且仅有1个参数，但给出了两个：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; abs(1, 2)</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</div><div class="line">TypeError: abs() takes exactly one argument (2 given)</div></pre></td></tr></table></figure>
+<p>如果传入的参数数量是对的，但参数类型不能被函数所接受，也会报<strong>TypeError</strong>的错误，并且给出错误信息：str是错误的参数类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; abs(&apos;a&apos;)</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</div><div class="line">TypeError: bad operand type for abs(): &apos;str&apos;</div></pre></td></tr></table></figure>
+<p>而比较函数 cmp(x, y) 就需要两个参数，如果 <strong>x&lt;y</strong>，返回<strong> -1</strong>，如果<strong> x==y</strong>，返回 <strong>0</strong>，如果 <strong>x&gt;y</strong>，返回 <strong>1</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; cmp(1, 2)</div><div class="line">-1</div><div class="line">&gt;&gt;&gt; cmp(2, 1)</div><div class="line">1</div><div class="line">&gt;&gt;&gt; cmp(3, 3)</div><div class="line">0</div></pre></td></tr></table></figure>
+<p>Python内置的常用函数还包括数据类型转换函数，比如   int()函数可以把其他数据类型转换为整数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; int(&apos;123&apos;)</div><div class="line">123</div><div class="line">&gt;&gt;&gt; int(12.34)</div><div class="line">12</div></pre></td></tr></table></figure>
+<p>str()函数把其他类型转换成 str：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; str(123)</div><div class="line">&apos;123&apos;</div><div class="line">&gt;&gt;&gt; str(1.23)</div><div class="line">&apos;1.23&apos;</div></pre></td></tr></table></figure>
+<h2 id="Python之编写函数"><a href="#Python之编写函数" class="headerlink" title="Python之编写函数"></a>Python之编写函数</h2><p>在Python中，定义一个函数要使用<strong>def </strong>语句，依次写出函数名、括号、括号中的参数和冒号:，然后，在缩进块中编写函数体，函数的返回值用 <strong>return</strong> 语句返回。</p>
+<p>我们以自定义一个求绝对值的 my_abs 函数为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def my_abs(x):</div><div class="line">    if x &gt;= 0:</div><div class="line">        return x</div><div class="line">    else:</div><div class="line">        return -x</div></pre></td></tr></table></figure>
+<p><strong>请注意</strong>，函数体内部的语句在执行时，一旦执行到return时，函数就执行完毕，并将结果返回。因此，函数内部通过条件判断和循环可以实现非常复杂的逻辑。</p>
+<p>如果没有return语句，函数执行完毕后也会返回结果，只是结果为 None。</p>
+<p>return None可以简写为return。</p>
+<h2 id="Python函数之返回多值"><a href="#Python函数之返回多值" class="headerlink" title="Python函数之返回多值"></a>Python函数之返回多值</h2><p>函数可以返回多个值吗？答案是肯定的。</p>
+<p>比如在游戏中经常需要从一个点移动到另一个点，给出坐标、位移和角度，就可以计算出新的坐标：</p>
+<p><strong># math</strong>包提供了<strong>sin()</strong>和 <strong>cos()</strong>函数，我们先用import引用它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import math</div><div class="line">def move(x, y, step, angle):</div><div class="line">    nx = x + step * math.cos(angle)</div><div class="line">    ny = y - step * math.sin(angle)</div><div class="line">    return nx, ny</div></pre></td></tr></table></figure>
+<p>这样我们就可以同时获得返回值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; x, y = move(100, 100, 60, math.pi / 6)</div><div class="line">&gt;&gt;&gt; print x, y</div><div class="line">151.961524227 70.0</div></pre></td></tr></table></figure>
+<p>但其实这只是一种假象，Python函数返回的仍然是单一值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; r = move(100, 100, 60, math.pi / 6)</div><div class="line">&gt;&gt;&gt; print r</div><div class="line">(151.96152422706632, 70.0)</div></pre></td></tr></table></figure>
+<p>用print打印返回结果，原来返回值是一个<strong>tuple</strong>！</p>
+<p>但是，在语法上，返回一个tuple可以省略括号，而多个变量可以同时接收一个tuple，按位置赋给对应的值，所以，<strong>Python的函数</strong>返回多值其实就是<strong>返回一个tuple</strong>，但写起来更方便。</p>
+<h2 id="Python之递归函数"><a href="#Python之递归函数" class="headerlink" title="Python之递归函数"></a>Python之递归函数</h2><p>在函数内部，可以调用其他函数。如果一个函数在内部调用自身本身，这个函数就是递归函数。</p>
+<p>举个例子，我们来计算阶乘 <strong>n! = 1 * 2 <em> 3 </em> … * n</strong>，用函数 <strong>fact(n)</strong>表示，可以看出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fact(n) = n! = 1 * 2 * 3 * ... * (n-1) * n = (n-1)! * n = fact(n-1) * n</div></pre></td></tr></table></figure>
+<p>所以，<strong>fact(n)</strong>可以表示为 <strong>n * fact(n-1)</strong>，只有n=1时需要特殊处理。</p>
+<p>于是，fact(n)用递归的方式写出来就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">def fact(n):</div><div class="line">    if n==1:</div><div class="line">        return 1</div><div class="line">    return n * fact(n - 1)</div></pre></td></tr></table></figure>
+<p>上面就是一个递归函数。可以试试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; fact(1)</div><div class="line">1</div><div class="line">&gt;&gt;&gt; fact(5)</div><div class="line">120</div><div class="line">&gt;&gt;&gt; fact(100)</div><div class="line">93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000L</div></pre></td></tr></table></figure>
+<p>如果我们计算fact(5)，可以根据函数定义看到计算过程如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">===&gt; fact(5)</div><div class="line">===&gt; 5 * fact(4)</div><div class="line">===&gt; 5 * (4 * fact(3))</div><div class="line">===&gt; 5 * (4 * (3 * fact(2)))</div><div class="line">===&gt; 5 * (4 * (3 * (2 * fact(1))))</div><div class="line">===&gt; 5 * (4 * (3 * (2 * 1)))</div><div class="line">===&gt; 5 * (4 * (3 * 2))</div><div class="line">===&gt; 5 * (4 * 6)</div><div class="line">===&gt; 5 * 24</div><div class="line">===&gt; 120</div></pre></td></tr></table></figure>
+<p>递归函数的优点是定义简单，逻辑清晰。理论上，所有的递归函数都可以写成循环的方式，但循环的逻辑不如递归清晰。</p>
+<p>使用递归函数需要注意防止栈溢出。在计算机中，函数调用是通过栈（stack）这种数据结构实现的，每当进入一个函数调用，栈就会加一层栈帧，每当函数返回，栈就会减一层栈帧。由于栈的大小不是无限的，所以，递归调用的次数过多，会导致栈溢出。可以试试计算 fact(10000)。</p>
+<h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>汉诺塔 (<a href="http://baike.baidu.com/view/191666.htm" target="_blank" rel="external">http://baike.baidu.com/view/191666.htm</a>) 的移动也可以看做是递归函数。</p>
+<p>我们对柱子编号为a, b, c，将所有圆盘从a移到c可以描述为：</p>
+<p>如果a只有一个圆盘，可以直接移动到c；</p>
+<p>如果a有N个圆盘，可以看成a有1个圆盘（底盘） + (N-1)个圆盘，首先需要把 (N-1) 个圆盘移动到 b，然后，将 a的最后一个圆盘移动到c，再将b的(N-1)个圆盘移动到c。</p>
+<p>请编写一个函数，给定输入 n, a, b, c，打印出移动的步骤：</p>
+<p>move(n, a, b, c)</p>
+<p>例如，输入 move(2, ‘A’, ‘B’, ‘C’)，打印出：</p>
+<p>A –&gt; B<br>A –&gt; C<br>B –&gt; C</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#HanoiTower.py</div><div class="line">def move(n,a,b,c):</div><div class="line">    if n == 1:</div><div class="line">        print a,&quot;--&gt;&quot;,c</div><div class="line">        return</div><div class="line">    move(n-1, a, c, b)</div><div class="line">    print a,&quot;--&gt;&quot;,c</div><div class="line">    move(n-1, b, c, a)</div><div class="line">    </div><div class="line">move(4, &apos;A&apos;, &apos;B&apos;, &apos;C&apos;);</div></pre></td></tr></table></figure>
+<h2 id="Python之定义默认参数"><a href="#Python之定义默认参数" class="headerlink" title="Python之定义默认参数"></a>Python之定义默认参数</h2><p>定义函数的时候，还可以有默认参数。</p>
+<p>例如Python自带的 <strong>int()</strong> 函数，其实就有两个参数，我们既可以传一个参数，又可以传两个参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; int(&apos;123&apos;)</div><div class="line">123</div><div class="line">&gt;&gt;&gt; int(&apos;123&apos;, 8)</div><div class="line">83</div></pre></td></tr></table></figure>
+<p>int()函数的第二个参数是转换进制，如果不传，默认是十进制 (base=10)，如果传了，就用传入的参数。</p>
+<p>可见，<strong>函数的默认参数的作用是简化调用</strong>，你只需要把必须的参数传进去。但是在需要的时候，又可以传入额外的参数来覆盖默认参数值。</p>
+<p>我们来定义一个计算 x 的N次方的函数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">def power(x, n):</div><div class="line">    s = 1</div><div class="line">    while n &gt; 0:</div><div class="line">        n = n - 1</div><div class="line">        s = s * x</div><div class="line">    return s</div></pre></td></tr></table></figure>
+<p>假设计算平方的次数最多，我们就可以把 n 的默认值设定为 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">def power(x, n=2):</div><div class="line">    s = 1</div><div class="line">    while n &gt; 0:</div><div class="line">        n = n - 1</div><div class="line">        s = s * x</div><div class="line">    return s</div></pre></td></tr></table></figure>
+<p>这样一来，计算平方就不需要传入两个参数了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; power(5)</div><div class="line">25</div></pre></td></tr></table></figure>
+<p>由于函数的参数按从左到右的顺序匹配，所以<strong>默认参数只能定义在必需参数的后面：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># OK:</div><div class="line">def fn1(a, b=1, c=2):</div><div class="line">    pass</div><div class="line"># Error:</div><div class="line">def fn2(a=1, b):</div><div class="line">    pass</div></pre></td></tr></table></figure>
+<h3 id="任务-1"><a href="#任务-1" class="headerlink" title="任务"></a>任务</h3><p>请定义一个 greet() 函数，它包含一个默认参数，如果没有传入，打印 ‘Hello, world.’，如果传入，打印 ‘Hello, xxx.’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#VariableParams.py</div><div class="line">def greet(a=&apos;world&apos;):</div><div class="line">    print &apos;Hello,&apos;+a+&apos;.&apos;</div><div class="line">    </div><div class="line">greet()</div><div class="line">greet(&apos;python&apos;)</div></pre></td></tr></table></figure>
+<h2 id="Python之定义可变参数"><a href="#Python之定义可变参数" class="headerlink" title="Python之定义可变参数"></a>Python之定义可变参数</h2><p>如果想让一个函数能接受任意个参数，我们就可以定义一个可变参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def fn(*args):</div><div class="line">    print args</div></pre></td></tr></table></figure>
+<p>可变参数的名字前面有个 <strong>* </strong>号，我们可以传入0个、1个或多个参数给可变参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; fn()</div><div class="line">()</div><div class="line">&gt;&gt;&gt; fn(&apos;a&apos;)</div><div class="line">(&apos;a&apos;,)</div><div class="line">&gt;&gt;&gt; fn(&apos;a&apos;, &apos;b&apos;)</div><div class="line">(&apos;a&apos;, &apos;b&apos;)</div><div class="line">&gt;&gt;&gt; fn(&apos;a&apos;, &apos;b&apos;, &apos;c&apos;)</div><div class="line">(&apos;a&apos;, &apos;b&apos;, &apos;c&apos;)</div></pre></td></tr></table></figure>
+<p>可变参数也不是很神秘，Python解释器会把传入的一组参数组装成一个tuple传递给可变参数，因此，在函数内部，直接把变量 args 看成一个 tuple 就好了。</p>
+<p>定义可变参数的目的也是为了简化调用。假设我们要计算任意个数的平均值，就可以定义一个可变参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def average(*args):</div><div class="line">    ...</div></pre></td></tr></table></figure>
+<p>这样，在调用的时候，可以这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; average()</div><div class="line">0</div><div class="line">&gt;&gt;&gt; average(1, 2)</div><div class="line">1.5</div><div class="line">&gt;&gt;&gt; average(1, 2, 2, 3, 4)</div><div class="line">2.4</div></pre></td></tr></table></figure>
+<h3 id="任务-2"><a href="#任务-2" class="headerlink" title="任务"></a>任务</h3><p>请编写接受可变参数的 average() 函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#VariableParams.py</div><div class="line">def average(*args):</div><div class="line">    if len(args)==0:</div><div class="line">        print 0</div><div class="line">    else:</div><div class="line">        sum = 0.0</div><div class="line">        for s in args:</div><div class="line">            sum = sum+s</div><div class="line">        print sum/len(args)</div><div class="line">    </div><div class="line">average()</div><div class="line">average(1,2)</div><div class="line">average(1,2,3,4)</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      shijiacheng
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://shijiacheng.studio/2017/06/22/python-junior-6/" title="第6章 函数">http://shijiacheng.studio/2017/06/22/python-junior-6/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均为原创文章。请尊重劳动成果，转载注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python教程/" rel="tag"># Python教程</a>
+          
+            <a href="/tags/Python入门/" rel="tag"># Python入门</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/18/python-junior-5/" rel="next" title="第5章 Dict和Set类型">
+                <i class="fa fa-chevron-left"></i> 第5章 Dict和Set类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/22/python-junior-7/" rel="prev" title="第7章 切片">
+                第7章 切片 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqgfg.com1.z0.glb.clouddn.com/1467087348445.jpg"
+               alt="shijiacheng" />
+          <p class="site-author-name" itemprop="name">shijiacheng</p>
+           
+              <p class="site-description motion-element" itemprop="description">我的小小窝，在这里书写点点滴滴。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shijiacheng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2787794175" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.baidu.com/" title="Title" target="_blank">Title</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之什么是函数"><span class="nav-number">1.</span> <span class="nav-text">Python之什么是函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之调用函数"><span class="nav-number">2.</span> <span class="nav-text">Python之调用函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之编写函数"><span class="nav-number">3.</span> <span class="nav-text">Python之编写函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python函数之返回多值"><span class="nav-number">4.</span> <span class="nav-text">Python函数之返回多值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之递归函数"><span class="nav-number">5.</span> <span class="nav-text">Python之递归函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务"><span class="nav-number">5.1.</span> <span class="nav-text">任务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之定义默认参数"><span class="nav-number">6.</span> <span class="nav-text">Python之定义默认参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务-1"><span class="nav-number">6.1.</span> <span class="nav-text">任务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python之定义可变参数"><span class="nav-number">7.</span> <span class="nav-text">Python之定义可变参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务-2"><span class="nav-number">7.1.</span> <span class="nav-text">任务</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  Copyright &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span>by Jiacheng Shi. All rights reserved.</span>
+</div>
+
+
+<div class="powered-by">
+  Design by Hexo.
+</div>
+
+<div class="theme-info">
+  Powered by Github | Alibaba Wanwang.
+</div>
+<div>
+  <span>版权声明：凡注明本站原创文章等，未经本人许可，任何人或机构不得以任何形式对本站内容进行商业用途.</span>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "2c07f26f84fa4f65abbbe6ea2d33d6e5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("KAYlnwDWxRnTAKYqjlglgybM-gzGzoHsz", "2L4S8ChpDcRgiM5oUSMhxPvY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <a href="https://github.com/shijiacheng" target="_blank">
+    <img style="position: absolute; top: 0; right: 0; border: 0;"
+       src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+       alt="Fork me on GitHub"
+       data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+  </a>
+
+</body>
+</html>
