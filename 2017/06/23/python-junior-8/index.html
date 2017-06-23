@@ -93,28 +93,17 @@
 
 
 
-<meta name="description" content="写在前面我是一个Android开发工程师，对于python也属于初学者，我希望通过记录笔记的方式记录我学习python的过程，对自己是一种整理与升华的过程，希望能够对其他python入门学习的开发者也能起到一点作用。">
+<meta name="description" content="什么是迭代在Python中，如果给定一个list或tuple，我们可以通过for循环来遍历这个list或tuple，这种遍历我们成为迭代（Iteration）。">
 <meta name="keywords" content="Python教程,Python入门">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第1章 python基本配置">
-<meta property="og:url" content="http://shijiacheng.studio/2017/06/17/python-junior-1/index.html">
+<meta property="og:title" content="第8章 迭代">
+<meta property="og:url" content="http://shijiacheng.studio/2017/06/23/python-junior-8/index.html">
 <meta property="og:site_name" content="shijiacheng&#39;s blog">
-<meta property="og:description" content="写在前面我是一个Android开发工程师，对于python也属于初学者，我希望通过记录笔记的方式记录我学习python的过程，对自己是一种整理与升华的过程，希望能够对其他python入门学习的开发者也能起到一点作用。">
-<meta property="og:image" content="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-1.png">
-<meta property="og:image" content="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-2.png">
-<meta property="og:image" content="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-3.png">
-<meta property="og:image" content="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-4.png">
-<meta property="og:image" content="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-5.png">
-<meta property="og:image" content="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-6.png">
-<meta property="og:image" content="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-7.png">
-<meta property="og:image" content="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-8.png">
-<meta property="og:image" content="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-9.png">
-<meta property="og:image" content="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-10.png">
-<meta property="og:updated_time" content="2017-06-17T14:22:18.000Z">
+<meta property="og:description" content="什么是迭代在Python中，如果给定一个list或tuple，我们可以通过for循环来遍历这个list或tuple，这种遍历我们成为迭代（Iteration）。">
+<meta property="og:updated_time" content="2017-06-23T11:32:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第1章 python基本配置">
-<meta name="twitter:description" content="写在前面我是一个Android开发工程师，对于python也属于初学者，我希望通过记录笔记的方式记录我学习python的过程，对自己是一种整理与升华的过程，希望能够对其他python入门学习的开发者也能起到一点作用。">
-<meta name="twitter:image" content="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-1.png">
+<meta name="twitter:title" content="第8章 迭代">
+<meta name="twitter:description" content="什么是迭代在Python中，如果给定一个list或tuple，我们可以通过for循环来遍历这个list或tuple，这种遍历我们成为迭代（Iteration）。">
 
 
 
@@ -142,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://shijiacheng.studio/2017/06/17/python-junior-1/"/>
+  <link rel="canonical" href="http://shijiacheng.studio/2017/06/23/python-junior-8/"/>
 
 
 
 
 
-  <title>第1章 python基本配置 | shijiacheng's blog</title>
+  <title>第8章 迭代 | shijiacheng's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -308,7 +297,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://shijiacheng.studio/2017/06/17/python-junior-1/">
+    <link itemprop="mainEntityOfPage" href="http://shijiacheng.studio/2017/06/23/python-junior-8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shijiacheng">
@@ -325,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">第1章 python基本配置</h1>
+          <h1 class="post-title" itemprop="name headline">第8章 迭代</h1>
         
 
         <div class="post-meta">
@@ -337,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-17T22:15:56+08:00">
-                2017-06-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-23T19:30:00+08:00">
+                2017-06-23
               </time>
             
 
@@ -378,7 +367,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/06/17/python-junior-1/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/06/23/python-junior-8/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -387,7 +376,7 @@
 
           
           
-             <span id="/2017/06/17/python-junior-1/" class="leancloud_visitors" data-flag-title="第1章 python基本配置">
+             <span id="/2017/06/23/python-junior-8/" class="leancloud_visitors" data-flag-title="第8章 迭代">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -420,48 +409,64 @@
       
 
       
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>我是一个Android开发工程师，对于python也属于初学者，我希望通过记录笔记的方式记录我学习python的过程，对自己是一种整理与升华的过程，希望能够对其他python入门学习的开发者也能起到一点作用。</p>
+        <h2 id="什么是迭代"><a href="#什么是迭代" class="headerlink" title="什么是迭代"></a>什么是迭代</h2><p>在Python中，如果给定一个<strong>list</strong>或<strong>tuple</strong>，我们可以通过for循环来遍历这个list或tuple，这种遍历我们成为迭代（Iteration）。</p>
 <a id="more"></a>
-<p>我的这套笔记中使用的python版本是python2.7，至于为什么不用python3，我觉得现在对于python2的教程更多一些，方便学习。另外我也属于第一次接触python，如果有哪里写的不对不严谨的地方，请您在评论区指正，我会虚心接受。</p>
-<p>同时，如果你也对python开发感兴趣，不妨我们一起交流，互相学习，共同进步。</p>
-<h2 id="安装python"><a href="#安装python" class="headerlink" title="安装python"></a>安装python</h2><h3 id="通过安装包安装"><a href="#通过安装包安装" class="headerlink" title="通过安装包安装"></a>通过安装包安装</h3><p>如果你想更新至最新的2.7.x或3.x版本，你可以直接从<a href="https://www.python.org/downloads/" target="_blank" rel="external">python官网</a>下载二进制安装文件。</p>
-<p><img src="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-1.png" alt="图1"></p>
-<p>点击上面的链接，然后选择需要的版本。Python 2和3的最新版本就在页面的顶部。选择好Python版本之后，你就能看到针对不同操作系统的安装包下载链接了。</p>
-<p>我建议你下载相应系统的安装器，因为它会处理好所有的安装事宜，只需要确保下载了自己电脑CPU架构（32位或64位）对应的文件即可。笔者下载的则是python2.7.13-Mac OS X 64-bit/32-bit installer。</p>
-<p>双击安装器之后，只要按照提示操作，一路下一步，就可以顺利安装Python。</p>
-<p>安装成功后，打开mac终端，输入python回车，然后就会出现安装的Python的版本信息。键入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print &apos;hello,Python!&apos;</div></pre></td></tr></table></figure>
-<p>输出如下图所示</p>
-<p><img src="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-2.png" alt="图2"></p>
-<h2 id="mac配置Python集成开发环境（Eclipse-Python-Pydev"><a href="#mac配置Python集成开发环境（Eclipse-Python-Pydev" class="headerlink" title="mac配置Python集成开发环境（Eclipse +Python+Pydev)"></a>mac配置Python集成开发环境（Eclipse +Python+Pydev)</h2><ol>
-<li><p>下载Mac版64位的Eclipse。</p>
-<p>进入到Eclipse官方网站的下载页面（<a href="http://www.eclipse.org/downloads/）" target="_blank" rel="external">http://www.eclipse.org/downloads/）</a></p>
-</li>
-<li><p>下载JDK以及安装</p>
-<p>进入到java开发语言包JDK的官方下载页面（<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html）" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javase/downloads/index.html）</a></p>
-<p>下载后运行安装文件，按步骤安装jdk。因为本套教程不是讲解java开发，所以这里不详细介绍jdk的安装和配置了。在终端键入 java -version 出现以下jdk信息：</p>
-<p><img src="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-3.png" alt="图3"></p>
-</li>
-<li><p>下载安装Pydev插件</p>
-<p>打开eclipse，菜单栏Help-Install New Software…</p>
-<p><img src="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-4.png" alt="图4"></p>
-<p>打开页面后，1点击Add…，2输入Location值为“<a href="http://www.pydev.org/updates”" target="_blank" rel="external">http://www.pydev.org/updates”</a> ，name值任意。输入完成后点击ok按钮。</p>
-<p><img src="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-5.png" alt="图5"></p>
-<p>在install中选中第一项，然后点击next，一路next。同意它所有的申请。</p>
-<p><img src="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-6.png" alt="图6"></p>
-</li>
-<li><p>配置eclipse的python开发环境</p>
-<p>对eclipse进行设置，具体步骤如下图所示：</p>
-<p><img src="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-7.png" alt="图7"></p>
-</li>
-<li><p>第一个python工程，步骤如下：</p>
-<p><img src="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-8.png" alt="图8"></p>
-<p>在src文件夹new file，输入文件名为hello.py，点击finish</p>
-<p><img src="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-9.png" alt="图9"></p>
-<p>在文件中输入如图所示的代码，然后执行，环境正常搭建完成。</p>
-<p><img src="http://7xqgfg.com1.z0.glb.clouddn.com/image/python/python-junior-1-10.png" alt="图10"></p>
-</li>
+<p>在Python中，迭代是通过 for … in 来完成的，而很多语言比如C或者Java，迭代list是通过下标完成的，比如Java代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for (i=0; i&lt;list.length; i++) &#123;</div><div class="line">    n = list[i];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看出，Python的for循环抽象程度要高于Java的for循环。</p>
+<p><strong>因为 Python 的 for循环不仅可以用在list或tuple上，还可以作用在其他任何可迭代对象上。</strong></p>
+<p>因此，迭代操作就是对于一个集合，无论该集合是有序还是无序，我们用 for 循环总是可以依次取出集合的每一个元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">注意: 集合是指包含一组元素的数据结构，我们已经介绍的包括：</div><div class="line">1. 有序集合：list，tuple，str和unicode；</div><div class="line">2. 无序集合：set</div><div class="line">3. 无序集合并且具有 key-value 对：dict</div></pre></td></tr></table></figure>
+<p>而迭代是一个动词，它指的是一种操作，在Python中，就是 for 循环。</p>
+<p>迭代与按下标访问数组最大的不同是，后者是一种具体的迭代实现方式，而前者只关心迭代结果，根本不关心迭代内部是如何实现的。</p>
+<h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>请用for循环迭代数列 1-100 并打印出7的倍数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#Iteration1.py</div><div class="line">L = range(1,101)</div><div class="line">for num in L:</div><div class="line">    if num %7==0:</div><div class="line">        print num</div></pre></td></tr></table></figure>
+<h2 id="索引迭代"><a href="#索引迭代" class="headerlink" title="索引迭代"></a>索引迭代</h2><p>Python中，<strong>迭代永远是取出元素本身，而非元素的索引。</strong></p>
+<p>对于有序集合，元素确实是有索引的。有的时候，我们确实想在 for 循环中拿到索引，怎么办？</p>
+<p>方法是使用 <strong>enumerate() 函数</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; L = [&apos;Adam&apos;, &apos;Lisa&apos;, &apos;Bart&apos;, &apos;Paul&apos;]</div><div class="line">&gt;&gt;&gt; for index, name in enumerate(L):</div><div class="line">...     print index, &apos;-&apos;, name</div><div class="line">... </div><div class="line">0 - Adam</div><div class="line">1 - Lisa</div><div class="line">2 - Bart</div><div class="line">3 - Paul</div></pre></td></tr></table></figure>
+<p>使用 enumerate() 函数，我们可以在for循环中同时绑定索引index和元素name。但是，这不是 enumerate() 的特殊语法。实际上，enumerate() 函数把：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[&apos;Adam&apos;, &apos;Lisa&apos;, &apos;Bart&apos;, &apos;Paul&apos;]</div></pre></td></tr></table></figure>
+<p>变成了类似：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[(0, &apos;Adam&apos;), (1, &apos;Lisa&apos;), (2, &apos;Bart&apos;), (3, &apos;Paul&apos;)]</div></pre></td></tr></table></figure>
+<p>因此，迭代的每一个元素实际上是一个tuple：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for t in enumerate(L):</div><div class="line">    index = t[0]</div><div class="line">    name = t[1]</div><div class="line">    print index, &apos;-&apos;, name</div></pre></td></tr></table></figure>
+<p>如果我们知道每个tuple元素都包含两个元素，for循环又可以进一步简写为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">for index, name in enumerate(L):</div><div class="line">    print index, &apos;-&apos;, name</div></pre></td></tr></table></figure>
+<p>这样不但代码更简单，而且还少了两条赋值语句。</p>
+<p>可见，索引迭代也不是真的按索引访问，而是由 enumerate() 函数自动把每个元素变成 (index, element) 这样的tuple，再迭代，就同时获得了索引和元素本身。</p>
+<h3 id="任务-1"><a href="#任务-1" class="headerlink" title="任务"></a>任务</h3><p>zip()函数可以把两个 list 变成一个 list：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; zip([10, 20, 30], [&apos;A&apos;, &apos;B&apos;, &apos;C&apos;])</div><div class="line">[(10, &apos;A&apos;), (20, &apos;B&apos;), (30, &apos;C&apos;)]</div></pre></td></tr></table></figure>
+<p>在迭代 [‘Adam’, ‘Lisa’, ‘Bart’, ‘Paul’] 时，如果我们想打印出名次 - 名字（名次从1开始)，请考虑如何在迭代中打印出来。</p>
+<p><strong>提示：</strong>考虑使用zip()函数和range()函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Iteration2.py</div><div class="line">L = [&apos;Adam&apos;, &apos;Lisa&apos;, &apos;Bart&apos;, &apos;Paul&apos;]</div><div class="line">for index,name in zip(range(1,len(L)+1),L):</div><div class="line">    print index,&apos;-&apos;,name</div></pre></td></tr></table></figure>
+<h2 id="迭代dict的value"><a href="#迭代dict的value" class="headerlink" title="迭代dict的value"></a>迭代dict的value</h2><p>我们已经了解了<strong>dict对象</strong>本身就是可<strong>迭代对象</strong>，用 for 循环直接迭代 dict，可以每次拿到dict的一个key。</p>
+<p>如果我们希望迭代 dict 对象的value，应该怎么做？</p>
+<p>dict 对象有一个 <strong>values() 方法</strong>，这个方法把dict转换成一个包含所有value的list，这样，我们迭代的就是 dict的每一个 value：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">d = &#123; &apos;Adam&apos;: 95, &apos;Lisa&apos;: 85, &apos;Bart&apos;: 59 &#125;</div><div class="line">print d.values()</div><div class="line"># [85, 95, 59]</div><div class="line">for v in d.values():</div><div class="line">    print v</div><div class="line"># 85</div><div class="line"># 95</div><div class="line"># 59</div></pre></td></tr></table></figure>
+<p>如果仔细阅读Python的文档，还可以发现，dict除了<strong>values()</strong>方法外，还有一个<strong>itervalues() </strong>方法，用<strong>itervalues()</strong> 方法替代 <strong>values()</strong> 方法，迭代效果完全一样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">d = &#123; &apos;Adam&apos;: 95, &apos;Lisa&apos;: 85, &apos;Bart&apos;: 59 &#125;</div><div class="line">print d.itervalues()</div><div class="line"># &lt;dictionary-valueiterator object at 0x106adbb50&gt;</div><div class="line">for v in d.itervalues():</div><div class="line">    print v</div><div class="line"># 85</div><div class="line"># 95</div><div class="line"># 59</div></pre></td></tr></table></figure>
+<p><strong>那这两个方法有何不同之处呢？</strong></p>
+<ol>
+<li><strong>values()</strong> 方法实际上把一个 dict 转换成了包含 value 的list。</li>
+<li>但是 <strong>itervalues()</strong> 方法不会转换，它会在迭代过程中依次从 dict 中取出 value，所以 itervalues() 方法比 values() 方法节省了生成 list 所需的内存。</li>
+<li>打印 itervalues() 发现它返回一个 <dictionary-valueiterator> 对象，这说明在Python中，<strong>for 循环可作用的迭代对象远不止 list，tuple，str，unicode，dict等</strong>，任何可迭代对象都可以作用于for循环，而内部如何迭代我们通常并不用关心。</dictionary-valueiterator></li>
 </ol>
+<p><strong>如果一个对象说自己可迭代，那我们就直接用 for 循环去迭代它，可见，迭代是一种抽象的数据操作，它不对迭代对象内部的数据有任何要求。</strong></p>
+<h3 id="任务-2"><a href="#任务-2" class="headerlink" title="任务"></a>任务</h3><p>给定一个dict：</p>
+<p>d = { ‘Adam’: 95, ‘Lisa’: 85, ‘Bart’: 59, ‘Paul’: 74 }</p>
+<p>请计算所有同学的平均分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#Iteration3.py</div><div class="line">d = &#123; &apos;Adam&apos;: 95, &apos;Lisa&apos;: 85, &apos;Bart&apos;: 59, &apos;Paul&apos;: 74 &#125;</div><div class="line">sum = 0.0</div><div class="line">for i in d.itervalues():</div><div class="line">    sum = sum +i</div><div class="line">print sum/len(d)</div></pre></td></tr></table></figure>
+<h2 id="迭代dict的key和value"><a href="#迭代dict的key和value" class="headerlink" title="迭代dict的key和value"></a>迭代dict的key和value</h2><p>我们了解了如何<strong>迭代 dict</strong> 的<strong>key</strong>和<strong>value</strong>，那么，在一个 for 循环中，能否同时迭代 key和value？答案是肯定的。</p>
+<p>首先，我们看看 dict 对象的 <strong>items()</strong> 方法返回的值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; d = &#123; &apos;Adam&apos;: 95, &apos;Lisa&apos;: 85, &apos;Bart&apos;: 59 &#125;</div><div class="line">&gt;&gt;&gt; print d.items()</div><div class="line">[(&apos;Lisa&apos;, 85), (&apos;Adam&apos;, 95), (&apos;Bart&apos;, 59)]</div></pre></td></tr></table></figure>
+<p>可以看到，items() 方法把dict对象转换成了包含tuple的list，我们对这个list进行迭代，可以同时获得key和value：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; for key, value in d.items():</div><div class="line">...     print key, &apos;:&apos;, value</div><div class="line">... </div><div class="line">Lisa : 85</div><div class="line">Adam : 95</div><div class="line">Bart : 59</div></pre></td></tr></table></figure>
+<p>和 values() 有一个 itervalues() 类似， <strong>items() </strong>也有一个对应的 <strong>iteritems()</strong>，iteritems() 不把dict转换成list，而是在迭代过程中不断给出 tuple，所以， iteritems() 不占用额外的内存。</p>
+<h3 id="任务-3"><a href="#任务-3" class="headerlink" title="任务"></a>任务</h3><p>请根据dict：</p>
+<p>d = { ‘Adam’: 95, ‘Lisa’: 85, ‘Bart’: 59, ‘Paul’: 74 }</p>
+<p>打印出 name : score，最后再打印出平均分 average : score。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#Iteration4.py</div><div class="line">d = &#123; &apos;Adam&apos;: 95, &apos;Lisa&apos;: 85, &apos;Bart&apos;: 59, &apos;Paul&apos;: 74 &#125;</div><div class="line">sum = 0.0</div><div class="line">for name,score in d.iteritems():</div><div class="line">    print name,&apos;:&apos;,score</div><div class="line">    sum = sum + score</div><div class="line">print &quot;average&quot;,&apos;:&apos;,sum/len(d)</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -490,7 +495,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://shijiacheng.studio/2017/06/17/python-junior-1/" title="第1章 python基本配置">http://shijiacheng.studio/2017/06/17/python-junior-1/</a>
+      <a href="http://shijiacheng.studio/2017/06/23/python-junior-8/" title="第8章 迭代">http://shijiacheng.studio/2017/06/23/python-junior-8/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -521,8 +526,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/05/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2017/06/22/python-junior-7/" rel="next" title="第7章 切片">
+                <i class="fa fa-chevron-left"></i> 第7章 切片
               </a>
             
           </div>
@@ -531,8 +536,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/17/python-junior-2/" rel="prev" title="第2章 Python中变量和数据类型">
-                第2章 Python中变量和数据类型 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/23/python-junior-9/" rel="prev" title="第9章 列表生成式">
+                第9章 列表生成式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -704,7 +709,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装python"><span class="nav-number">2.</span> <span class="nav-text">安装python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过安装包安装"><span class="nav-number">2.1.</span> <span class="nav-text">通过安装包安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mac配置Python集成开发环境（Eclipse-Python-Pydev"><span class="nav-number">3.</span> <span class="nav-text">mac配置Python集成开发环境（Eclipse +Python+Pydev)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是迭代"><span class="nav-number">1.</span> <span class="nav-text">什么是迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务"><span class="nav-number">1.1.</span> <span class="nav-text">任务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引迭代"><span class="nav-number">2.</span> <span class="nav-text">索引迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务-1"><span class="nav-number">2.1.</span> <span class="nav-text">任务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代dict的value"><span class="nav-number">3.</span> <span class="nav-text">迭代dict的value</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务-2"><span class="nav-number">3.1.</span> <span class="nav-text">任务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代dict的key和value"><span class="nav-number">4.</span> <span class="nav-text">迭代dict的key和value</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务-3"><span class="nav-number">4.1.</span> <span class="nav-text">任务</span></a></li></ol></li></ol></div>
             
 
           </div>
