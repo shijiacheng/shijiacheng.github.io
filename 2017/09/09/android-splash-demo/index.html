@@ -1,0 +1,1045 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android基础," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="相信很多人都在网上查过关于启动白屏或者黑屏的问题。 一般的App应该是分为两种：  有闪屏页或者启动页(SplashActivity)，页面大概会持续2到3秒 没有闪屏页和启动页，打开应用后会直接跳转到应用主界面">
+<meta name="keywords" content="Android基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android启动页解决攻略">
+<meta property="og:url" content="http://shijiacheng.studio/2017/09/09/android-splash-demo/index.html">
+<meta property="og:site_name" content="shijiacheng&#39;s blog">
+<meta property="og:description" content="相信很多人都在网上查过关于启动白屏或者黑屏的问题。 一般的App应该是分为两种：  有闪屏页或者启动页(SplashActivity)，页面大概会持续2到3秒 没有闪屏页和启动页，打开应用后会直接跳转到应用主界面">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1762953-8f5bdb31e61ceed3.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1762953-fdc554c31e89df64.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2017-09-09T06:42:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android启动页解决攻略">
+<meta name="twitter:description" content="相信很多人都在网上查过关于启动白屏或者黑屏的问题。 一般的App应该是分为两种：  有闪屏页或者启动页(SplashActivity)，页面大概会持续2到3秒 没有闪屏页和启动页，打开应用后会直接跳转到应用主界面">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1762953-8f5bdb31e61ceed3.gif?imageMogr2/auto-orient/strip">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shijiacheng.studio/2017/09/09/android-splash-demo/"/>
+
+
+
+
+
+  <title>Android启动页解决攻略 | shijiacheng's blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0025c4e3ea66bbbea3ea718610460fe7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=57178270";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">shijiacheng's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://shijiacheng.studio/2017/09/09/android-splash-demo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shijiacheng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://7xqgfg.com1.z0.glb.clouddn.com/1467087348445.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shijiacheng's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android启动页解决攻略</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-09T12:31:38+08:00">
+                2017-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android基础教程/" itemprop="url" rel="index">
+                    <span itemprop="name">Android基础教程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/09/09/android-splash-demo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/09/09/android-splash-demo/" class="leancloud_visitors" data-flag-title="Android启动页解决攻略">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>相信很多人都在网上查过关于启动白屏或者黑屏的问题。</p>
+<p>一般的App应该是分为两种：</p>
+<ul>
+<li>有闪屏页或者启动页(SplashActivity)，页面大概会持续2到3秒</li>
+<li>没有闪屏页和启动页，打开应用后会直接跳转到应用主界面</li>
+</ul>
+<a id="more"></a>
+<p>不管有没有启动页，如果你不处理，你会发现当你点击桌面上那个icon图标的时候会先闪白屏或者黑屏一下，然后才会进入我们设定的页面。</p>
+<p>但是我们手机上的常用应用，比如美团，今日头条，微信等，点击app icon的时候，其实感觉是一瞬间秒开的，没有白屏的过程，那么这是如何处理的呢？</p>
+<h2 id="先说一说为什么会出现白屏或者黑屏吧！"><a href="#先说一说为什么会出现白屏或者黑屏吧！" class="headerlink" title="先说一说为什么会出现白屏或者黑屏吧！"></a>先说一说为什么会出现白屏或者黑屏吧！</h2><p>当打开一个Activity时，如果这个Activity所属的应用还没有在运行，系统会为这个Activity所属的应用创建一个进程，但进程的创建与初始化都需要时间，如果没有任何反应的话，如果程序初始化的时间很长，用户可能还以为没有点到相应的位置。但此时所启动的程序还没初始化完，既无法显示程序，又不能停在原处不做任何动作，这就有了Starting Window的概念，也可以称之为Preview Window。</p>
+<p>Starting Window就是一个用于在应用程序进程创建并初始化成功前显示的临时窗口，拥有的Window Type是TYPE_APPLICATION_STARTING。在程序初始化完成前显示这个窗口，以告知用户系统已经知道了他要打开这个应用并做出了响应，当程序初始化完成后显示用户UI并移除这个窗口。</p>
+<p>显示白屏或者黑屏，是由你的启动Activity或者Application来决定的。如果你使用的是Light主题，那么就可能出现白屏；如果你使用的是Black主题，那么就可能出现黑屏。当你设置Light或者Black主题时，Starting Window显示的就是你启动Activity的android:windowBackground属性，所以才会出现白屏或者黑屏的情况。</p>
+<p>网上有很多教程，说是把主题的背景设为透明，这样子的确实没有白屏了，但是你会发现点击完app的icon之后，会有一小会的停顿，给用户一种卡顿的感觉，体验非常不好，不能为了实现功能而实现功能，软件开发用户体验至上！</p>
+<hr>
+<p>那么好的体验该如何开发呢？我们以实现一个今日头条app的启动页作为案例。</p>
+<p>我们先来看一看常规情况下app启动的黑白屏。</p>
+<p>为了让白屏或者黑屏明显的显示，在SplashActivity的onCreate方法中setContentView之前加入一个休眠1秒的操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">/*还没有加载布局是睡眠1秒，确保黑屏或白屏效果明显*/</div><div class="line">try &#123;</div><div class="line">    Thread.sleep(1000);</div><div class="line">&#125; catch (InterruptedException e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">/**闪屏页持续1s然后进入主页*/</div><div class="line">mHandler.postDelayed(new Runnable() &#123;</div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line">                Intent intent = new Intent(activity,AdsActivity.class);</div><div class="line">                startActivity(intent);</div><div class="line">                finish();</div><div class="line">                overridePendingTransition(R.anim.fade,R.anim.hold);</div><div class="line">            &#125;</div><div class="line">        &#125;, 1000);</div></pre></td></tr></table></figure>
+<p>效果是：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1762953-8f5bdb31e61ceed3.gif?imageMogr2/auto-orient/strip" alt="没做任何处理的启动页"></p>
+<h2 id="接下来我们来消灭白屏。"><a href="#接下来我们来消灭白屏。" class="headerlink" title="接下来我们来消灭白屏。"></a>接下来我们来消灭白屏。</h2><h3 id="第一步-消灭白屏"><a href="#第一步-消灭白屏" class="headerlink" title="第一步 消灭白屏"></a>第一步 消灭白屏</h3><p><strong>1.我们需要删除原来的闪屏页的布局activity_splash.xml，同时删除SplashActivity中setContentView(R.layout.activity_splash)方法。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">    super.onCreate(savedInstanceState);</div><div class="line">    /*还没有加载布局是睡眠1秒，确保黑屏或白屏效果明显*/</div><div class="line">    try &#123;</div><div class="line">        Thread.sleep(1000);</div><div class="line">    &#125; catch (InterruptedException e) &#123;</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">//    setContentView(R.layout.activity_splash);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>2.为了让闪屏页持续时间长一点，我们用handler模拟耗时操作，1秒后进行跳转。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">mHandler.postDelayed(new Runnable() &#123;</div><div class="line">        @Override</div><div class="line">        public void run() &#123;</div><div class="line">        //这块耗时操作可以进行初始化，或者网络请求等，1秒结束后跳转到广告页面</div><div class="line">            Intent intent = new Intent(activity,AdsActivity.class);</div><div class="line">            startActivity(intent);</div><div class="line">            finish();</div><div class="line">        &#125;</div><div class="line">    &#125;, 1000);</div></pre></td></tr></table></figure>
+<p><strong>3.我们删除了闪屏页的布局文件，想法是将闪屏的背景作为Activity的主题背景，要做到这一点，首先要在 res/drawable创建一个XML drawable文件。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;layer-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line"></div><div class="line">    &lt;item android:drawable=&quot;@color/white&quot; /&gt;</div><div class="line"></div><div class="line">    &lt;item android:bottom=&quot;20dp&quot;&gt;</div><div class="line">        &lt;bitmap</div><div class="line">            android:gravity=&quot;bottom&quot;</div><div class="line">            android:src=&quot;@mipmap/icon_logo&quot; /&gt;</div><div class="line">    &lt;/item&gt;</div><div class="line"></div><div class="line">&lt;/layer-list&gt;</div></pre></td></tr></table></figure>
+<p><strong>4.接下来在style.xml中创建一个闪屏页的主题，将创建的xml设置为window的背景。并且在AndroidManifest.xml中给SplashActivity配置style。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;style name=&quot;AppTheme.Splash&quot; parent =&quot;android:Theme.Holo.Light.NoActionBar&quot;&gt;</div><div class="line">    &lt;item name=&quot;android:windowBackground&quot;&gt;@drawable/drawable_splash&lt;/item&gt;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;activity android:name=&quot;.SplahActivity&quot;</div><div class="line">       android:theme=&quot;@style/AppTheme.Splash&quot;&gt;</div><div class="line">       &lt;intent-filter&gt;</div><div class="line">            &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;</div><div class="line"></div><div class="line">            &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;</div><div class="line">       &lt;/intent-filter&gt;</div><div class="line">&lt;/activity&gt;</div></pre></td></tr></table></figure>
+<p>这个时候运行程序，我们发现其实已经没有白屏了。</p>
+<h3 id="第二步，我们实现广告加载页面"><a href="#第二步，我们实现广告加载页面" class="headerlink" title="第二步，我们实现广告加载页面"></a>第二步，我们实现广告加载页面</h3><p><strong> 1.广告页是一个倒计时的显示，布局中放入一个TextView来显示倒计时信息，放入一个ImageView来显示加载动画。点击跳过广告的时候显示加载动画。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:layout_width=&quot;match_parent&quot;</div><div class="line">    android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line"></div><div class="line">    &lt;ImageView</div><div class="line">        android:id=&quot;@+id/iv_logo&quot;</div><div class="line">        android:layout_width=&quot;wrap_content&quot;</div><div class="line">        android:layout_height=&quot;wrap_content&quot;</div><div class="line">        android:src=&quot;@mipmap/icon_logo&quot;</div><div class="line">        android:layout_marginBottom=&quot;20dp&quot;</div><div class="line">        android:layout_alignParentBottom=&quot;true&quot;</div><div class="line">        android:layout_centerHorizontal=&quot;true&quot;/&gt;</div><div class="line"></div><div class="line">    &lt;RelativeLayout</div><div class="line">        android:layout_marginBottom=&quot;20dp&quot;</div><div class="line">        android:layout_above=&quot;@+id/iv_logo&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        android:background=&quot;@color/colorAccent&quot;&gt;</div><div class="line">        </div><div class="line">        &lt;TextView</div><div class="line">            android:id=&quot;@+id/tv_ads&quot;</div><div class="line">            android:layout_alignParentRight=&quot;true&quot;</div><div class="line">            android:layout_marginTop=&quot;20dp&quot;</div><div class="line">            android:layout_marginRight=&quot;20dp&quot;</div><div class="line">            android:layout_width=&quot;wrap_content&quot;</div><div class="line">            android:layout_height=&quot;wrap_content&quot;</div><div class="line">            android:text=&quot;跳过广告&quot;</div><div class="line">            android:textColor=&quot;@color/white&quot;</div><div class="line">            android:textSize=&quot;12sp&quot;</div><div class="line">            android:background=&quot;@drawable/bg_ad_text&quot;</div><div class="line">            android:padding=&quot;5dp&quot;/&gt;</div><div class="line"></div><div class="line">    &lt;/RelativeLayout&gt;</div><div class="line"></div><div class="line">&lt;/RelativeLayout&gt;</div></pre></td></tr></table></figure>
+<p><strong>2.页面实现中，我们定义一个CountDownTimer，这个类是Android SDK提供用来进行倒计时的。<code>CountDownTimer(long millisInFuture, long countDownInterval)</code>有两个参数，第一个是计时的总时长，第二个是间隔。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">public class AdsActivity extends Activity &#123;</div><div class="line">    private Activity activity;</div><div class="line">    private TextView tvAds;</div><div class="line">    private CountDownTimer countDownTimer;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_ads);</div><div class="line">        activity =this;</div><div class="line">        tvAds = (TextView) findViewById(R.id.tv_ads);</div><div class="line"></div><div class="line">        countDownTimer = new CountDownTimer(4000,1000) &#123;</div><div class="line">            @Override</div><div class="line">            public void onTick(long millisUntilFinished) &#123;</div><div class="line">                tvAds.setText(&quot;跳过广告&quot;+(millisUntilFinished/1000)+&quot;秒&quot;);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void onFinish() &#123;</div><div class="line">                Intent intent = new Intent(activity,MainActivity.class);</div><div class="line">                startActivity(intent);</div><div class="line">                finish();</div><div class="line">            &#125;</div><div class="line">        &#125;.start();</div><div class="line"></div><div class="line">        /**</div><div class="line">         * 跳过广告</div><div class="line">         */</div><div class="line">        tvAds.setOnClickListener(new View.OnClickListener() &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v) &#123;</div><div class="line">                countDownTimer.cancel();</div><div class="line">                Intent intent = new Intent(activity,MainActivity.class);</div><div class="line">                startActivity(intent);</div><div class="line">                finish();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="第三步，优化"><a href="#第三步，优化" class="headerlink" title="第三步，优化"></a>第三步，优化</h3><p><strong>1.我们运行起来，发现页面之间的跳转有些不美观，从右向左进入的动画感觉有些生硬。因此我们给页面之间加入转场动画。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#fade.xml 页面退出动画</div><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;alpha xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">       android:interpolator=&quot;@android:anim/accelerate_interpolator&quot;</div><div class="line">       android:fromAlpha=&quot;0.0&quot; android:toAlpha=&quot;0.0&quot;</div><div class="line">       android:duration=&quot;400&quot; /&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#hold.xml 页面进入动画</div><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;translate xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">       android:interpolator=&quot;@android:anim/accelerate_interpolator&quot;</div><div class="line">       android:fromXDelta=&quot;0&quot; android:toXDelta=&quot;0&quot;</div><div class="line">       android:duration=&quot;400&quot; /&gt;</div></pre></td></tr></table></figure>
+<p>在每个Intent跳转的地方加入转场效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Intent intent = new Intent(activity,AdsActivity.class);</div><div class="line">startActivity(intent);</div><div class="line">finish();</div><div class="line">overridePendingTransition(R.anim.fade,R.anim.hold);</div></pre></td></tr></table></figure>
+<p>最终的效果是：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1762953-fdc554c31e89df64.gif?imageMogr2/auto-orient/strip" alt="消除黑白屏的启动页"></p>
+<p><strong>有两点注意：</strong></p>
+<ul>
+<li><code>overridePendingTransition</code>方法要写在finish后面</li>
+<li><code>overridePendingTransition</code>方法一定要写在主线程中，在子线程是没有作用的。</li>
+</ul>
+<p>源码地址：<a href="http://download.csdn.net/download/u012771445/9971093" target="_blank" rel="external">http://download.csdn.net/download/u012771445/9971093</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      shijiacheng
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://shijiacheng.studio/2017/09/09/android-splash-demo/" title="Android启动页解决攻略">http://shijiacheng.studio/2017/09/09/android-splash-demo/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均为原创文章。请尊重劳动成果，转载注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android基础/" rel="tag"># Android基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/07/GoogleVRImage/" rel="next" title="利用Google VR教你打造全景图片展示">
+                <i class="fa fa-chevron-left"></i> 利用Google VR教你打造全景图片展示
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xqgfg.com1.z0.glb.clouddn.com/1467087348445.jpg"
+               alt="shijiacheng" />
+          <p class="site-author-name" itemprop="name">shijiacheng</p>
+           
+              <p class="site-description motion-element" itemprop="description">我的小小窝，在这里书写点点滴滴。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shijiacheng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2787794175" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.baidu.com/" title="Title" target="_blank">Title</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#先说一说为什么会出现白屏或者黑屏吧！"><span class="nav-number">1.</span> <span class="nav-text">先说一说为什么会出现白屏或者黑屏吧！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接下来我们来消灭白屏。"><span class="nav-number">2.</span> <span class="nav-text">接下来我们来消灭白屏。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步-消灭白屏"><span class="nav-number">2.1.</span> <span class="nav-text">第一步 消灭白屏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步，我们实现广告加载页面"><span class="nav-number">2.2.</span> <span class="nav-text">第二步，我们实现广告加载页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步，优化"><span class="nav-number">2.3.</span> <span class="nav-text">第三步，优化</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  Copyright &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span>by Jiacheng Shi. All rights reserved.</span>
+</div>
+
+
+<div class="powered-by">
+  Design by Hexo.
+</div>
+
+<div class="theme-info">
+  Powered by Github | Alibaba Wanwang.
+</div>
+<div>
+  <span>版权声明：凡注明本站原创文章等，未经本人许可，任何人或机构不得以任何形式对本站内容进行商业用途.</span>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "2c07f26f84fa4f65abbbe6ea2d33d6e5",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("KAYlnwDWxRnTAKYqjlglgybM-gzGzoHsz", "2L4S8ChpDcRgiM5oUSMhxPvY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <a href="https://github.com/shijiacheng" target="_blank">
+    <img style="position: absolute; top: 0; right: 0; border: 0;"
+       src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+       alt="Fork me on GitHub"
+       data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+  </a>
+
+</body>
+</html>
