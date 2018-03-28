@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://shijiacheng.studio/2018/03/28/okhttp-interceptor/</loc>
+    <lastmod>2018-03-28T16:10:16.939Z</lastmod>
+    <data>
+        <display>
+        <title>OkHttp实现全局过期token自动刷新</title>
+        <pubTime>2018-03-28T12:35:45.000Z</pubTime>
+        
+        <tag>Okhttp</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android进阶" url="http://shijiacheng.studio/categories/Android%E8%BF%9B%E9%98%B6/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shijiacheng.studio/2017/09/09/android-splash-demo/</loc>
     <lastmod>2017-09-09T06:42:58.000Z</lastmod>
     <data>
