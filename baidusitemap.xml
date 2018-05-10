@@ -4,6 +4,246 @@
 
     
   <url>
+    <loc>http://shijiacheng.studio/2018/05/10/helloKotlin-10/</loc>
+    <lastmod>2018-05-10T15:17:42.803Z</lastmod>
+    <data>
+        <display>
+        <title>第10章 其他Kotlin技术（1）</title>
+        <pubTime>2018-05-10T15:10:50.000Z</pubTime>
+        
+        <tag>Kotlin入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kotlin入坑小结" url="http://shijiacheng.studio/categories/Kotlin%E5%85%A5%E5%9D%91%E5%B0%8F%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shijiacheng.studio/2018/05/10/helloKotlin-11/</loc>
+    <lastmod>2018-05-10T15:17:38.102Z</lastmod>
+    <data>
+        <display>
+        <title>第11章 其他Kotlin技术(2)</title>
+        <pubTime>2018-05-10T15:10:57.000Z</pubTime>
+        
+        <tag>Kotlin入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kotlin入坑小结" url="http://shijiacheng.studio/categories/Kotlin%E5%85%A5%E5%9D%91%E5%B0%8F%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shijiacheng.studio/2018/05/10/helloKotlin-08/</loc>
+    <lastmod>2018-05-10T15:17:20.455Z</lastmod>
+    <data>
+        <display>
+        <title>第8章 高阶函数与Lambda表达式</title>
+        <pubTime>2018-05-10T15:10:37.000Z</pubTime>
+        
+        <tag>Kotlin入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kotlin入坑小结" url="http://shijiacheng.studio/categories/Kotlin%E5%85%A5%E5%9D%91%E5%B0%8F%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shijiacheng.studio/2018/05/10/helloKotlin-09/</loc>
+    <lastmod>2018-05-10T15:17:01.194Z</lastmod>
+    <data>
+        <display>
+        <title>第9章 函数</title>
+        <pubTime>2018-05-10T15:10:43.000Z</pubTime>
+        
+        <tag>Kotlin入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kotlin入坑小结" url="http://shijiacheng.studio/categories/Kotlin%E5%85%A5%E5%9D%91%E5%B0%8F%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shijiacheng.studio/2018/05/10/helloKotlin-05/</loc>
+    <lastmod>2018-05-10T15:14:00.448Z</lastmod>
+    <data>
+        <display>
+        <title>第5章 数据类与封闭类</title>
+        <pubTime>2018-05-10T15:10:21.000Z</pubTime>
+        
+        <tag>Kotlin入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kotlin入坑小结" url="http://shijiacheng.studio/categories/Kotlin%E5%85%A5%E5%9D%91%E5%B0%8F%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shijiacheng.studio/2018/05/10/helloKotlin-06/</loc>
+    <lastmod>2018-05-10T15:13:55.448Z</lastmod>
+    <data>
+        <display>
+        <title>第6章 泛型</title>
+        <pubTime>2018-05-10T15:10:28.000Z</pubTime>
+        
+        <tag>Kotlin入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kotlin入坑小结" url="http://shijiacheng.studio/categories/Kotlin%E5%85%A5%E5%9D%91%E5%B0%8F%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shijiacheng.studio/2018/05/10/helloKotlin-07/</loc>
+    <lastmod>2018-05-10T15:13:49.238Z</lastmod>
+    <data>
+        <display>
+        <title>第7章 对象和委托</title>
+        <pubTime>2018-05-10T15:10:33.000Z</pubTime>
+        
+        <tag>Kotlin入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kotlin入坑小结" url="http://shijiacheng.studio/categories/Kotlin%E5%85%A5%E5%9D%91%E5%B0%8F%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shijiacheng.studio/2018/05/10/helloKotlin-04/</loc>
+    <lastmod>2018-05-10T15:10:08.174Z</lastmod>
+    <data>
+        <display>
+        <title>第4章 枚举类和扩展</title>
+        <pubTime>2018-05-10T15:09:26.000Z</pubTime>
+        
+        <tag>Kotlin入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kotlin入坑小结" url="http://shijiacheng.studio/categories/Kotlin%E5%85%A5%E5%9D%91%E5%B0%8F%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shijiacheng.studio/2018/05/10/helloKotlin-03/</loc>
+    <lastmod>2018-05-10T15:08:58.156Z</lastmod>
+    <data>
+        <display>
+        <title>第3章 类和接口</title>
+        <pubTime>2018-05-10T15:08:01.000Z</pubTime>
+        
+        <tag>Kotlin入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kotlin入坑小结" url="http://shijiacheng.studio/categories/Kotlin%E5%85%A5%E5%9D%91%E5%B0%8F%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shijiacheng.studio/2018/05/10/helloKotlin-02/</loc>
+    <lastmod>2018-05-10T15:07:38.596Z</lastmod>
+    <data>
+        <display>
+        <title>第2章 Kotlin基础知识</title>
+        <pubTime>2018-05-10T15:06:45.000Z</pubTime>
+        
+        <tag>Kotlin入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kotlin入坑小结" url="http://shijiacheng.studio/categories/Kotlin%E5%85%A5%E5%9D%91%E5%B0%8F%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shijiacheng.studio/2018/05/10/helloKotlin/</loc>
+    <lastmod>2018-05-10T15:06:16.170Z</lastmod>
+    <data>
+        <display>
+        <title>Kotlin入坑小结-HelloKotlin</title>
+        <pubTime>2018-05-10T15:47:31.000Z</pubTime>
+        
+        <tag>Kotlin入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kotlin入坑小结" url="http://shijiacheng.studio/categories/Kotlin%E5%85%A5%E5%9D%91%E5%B0%8F%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shijiacheng.studio/2018/05/10/helloKotlin-01/</loc>
+    <lastmod>2018-05-10T15:02:46.288Z</lastmod>
+    <data>
+        <display>
+        <title>第1章 第一个Kotlin程序</title>
+        <pubTime>2018-05-10T14:55:18.000Z</pubTime>
+        
+        <tag>Kotlin入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Kotlin入坑小结" url="http://shijiacheng.studio/categories/Kotlin%E5%85%A5%E5%9D%91%E5%B0%8F%E7%BB%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shijiacheng.studio/2018/04/14/crazyleetcode/</loc>
     <lastmod>2018-04-14T02:31:37.635Z</lastmod>
     <data>

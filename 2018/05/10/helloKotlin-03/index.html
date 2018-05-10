@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Kotlin入门," />
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="Kotlin入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第3章 类和接口">
+<meta property="og:url" content="http://shijiacheng.studio/2018/05/10/helloKotlin-03/index.html">
+<meta property="og:site_name" content="shijiacheng&#39;s blog">
+<meta property="og:image" content="https://github.com/shijiacheng/HelloKotlin/blob/master/note/images/15.jpg?raw=true">
+<meta property="og:updated_time" content="2018-05-10T15:08:58.156Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第3章 类和接口">
+<meta name="twitter:image" content="https://github.com/shijiacheng/HelloKotlin/blob/master/note/images/15.jpg?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shijiacheng.studio/2018/05/10/helloKotlin-03/"/>
+
+
+
+
+
+  <title>第3章 类和接口 | shijiacheng's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0025c4e3ea66bbbea3ea718610460fe7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/shijiacheng" target="_blank"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">shijiacheng's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shijiacheng.studio/2018/05/10/helloKotlin-03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shijiacheng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://7xqgfg.com1.z0.glb.clouddn.com/1467087348445.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shijiacheng's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第3章 类和接口</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-10T23:08:01+08:00">
+                2018-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kotlin入坑小结/" itemprop="url" rel="index">
+                    <span itemprop="name">Kotlin入坑小结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/10/helloKotlin-03/" class="leancloud_visitors" data-flag-title="第3章 类和接口">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://github.com/shijiacheng/HelloKotlin/blob/master/note/images/15.jpg?raw=true" alt=""></p>
+<a id="more"></a>
+<h2 id="3-1类的声明"><a href="#3-1类的声明" class="headerlink" title="3.1类的声明"></a>3.1类的声明</h2><p>和Java一样，类的声明使用class关键字，如果声明一个空类，Kotlin和Java没有任何区别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class MyClass&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-2构造器"><a href="#3-2构造器" class="headerlink" title="3.2构造器"></a>3.2构造器</h2><p>类允许定义一个主构造器和若干个第二构造器。</p>
+<h3 id="主构造器"><a href="#主构造器" class="headerlink" title="主构造器"></a>主构造器</h3><p>主构造器是类头的一部分，紧跟在类名后面，构造器参数是可选的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class Person constructor(firstName:String)&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果主构造器没有任何注释和修饰器，constructor关键字可省略</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class Person (firstName:String)&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>主构造器需要在init块中进行初始化，在init块中可以直接使用主构造器的参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class Person (firstName:String)&#123;</div><div class="line">    init &#123;</div><div class="line">        println(firstName)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>主构造器的参数不仅可以用在init块中，还可以用于对类属性进行初始化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Person (firstName:String)&#123;</div><div class="line">    var name = firstName</div><div class="line">    init &#123;</div><div class="line">        println(firstName)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意：即使在构造器内部使用var声明变量，修改参数变量值后，并不会把修改的值传到对象外部。</p>
+<h3 id="第二构造器"><a href="#第二构造器" class="headerlink" title="第二构造器"></a>第二构造器</h3><p>Kotlin可以声明若干个第二构造器。第二构造器需要在类中声明，前面必须要加constructor关键字。</p>
+<p>如果类中声明了主构造器，那么所有的第二构造器都需要在声明后面调用主构造器，或者通过另外一个第二构造器间接地调用主构造器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">class QACommunity(var url:String)&#123;</div><div class="line">    //主构造器实现</div><div class="line">    init &#123;</div><div class="line">        println(url)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 第二构造器（通过this直接调用了主构造器）</div><div class="line">    constructor(value:Int):this(&quot;shijiacheng.studio&quot;)&#123;</div><div class="line">        println(value)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 第二构造器（通过this直接调用了主构造器）</div><div class="line">    constructor(desc:String,url: String):this(&quot;(&quot;+url+&quot;)&quot;)&#123;</div><div class="line">        println(desc+&quot;:&quot;+url)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 第二构造器（通过this调用了第二构造器，间接的调用了主构造器）</div><div class="line">    constructor():this(20)&#123;</div><div class="line">        println(&quot;&lt;http://shijiacheng.studio&gt;&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用QACommunity类的每个构造器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">fun main(args: Array&lt;String&gt;) &#123;</div><div class="line">    println(&quot;*****第1个*****&quot;)</div><div class="line">    QACommunity(&quot;http://shijiacheng.studio&quot;)</div><div class="line">    println(&quot;*****第2个*****&quot;)</div><div class="line">    QACommunity(20)</div><div class="line">    println(&quot;*****第3个*****&quot;)</div><div class="line">    QACommunity(&quot;我的博客&quot;,&quot;http://shijiacheng.studio&quot;)</div><div class="line">    println(&quot;*****第4个*****&quot;)</div><div class="line">    QACommunity()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">*****第1个*****</div><div class="line">http://shijiacheng.studio</div><div class="line">*****第2个*****</div><div class="line">shijiacheng.studio</div><div class="line">20</div><div class="line">*****第3个*****</div><div class="line">(http://shijiacheng.studio)</div><div class="line">我的博客:http://shijiacheng.studio</div><div class="line">*****第4个*****</div><div class="line">shijiacheng.studio</div><div class="line">20</div><div class="line">&lt;http://shijiacheng.studio&gt;</div></pre></td></tr></table></figure>
+<p>注意：在主构造器参数中可以使用可以使用var和val，但在第二构造器参数中不能使用var和val。这就意味着第二构造器的参数都是只读的，不能在构造器内部改变参数的值。</p>
+<h3 id="Kotlin中的Singleton模式"><a href="#Kotlin中的Singleton模式" class="headerlink" title="Kotlin中的Singleton模式"></a>Kotlin中的Singleton模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">class Singleton private constructor() &#123;</div><div class="line">    public var value: Singleton? = null</div><div class="line"></div><div class="line">    private object mHolder &#123;</div><div class="line">        val INSTANCE = Singleton()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    companion object Factory &#123;</div><div class="line">        fun getInstance(): Singleton &#123;</div><div class="line">            return mHolder.INSTANCE</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>执行下面代码，访问Singleton类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">fun main(args: Array&lt;String&gt;) &#123;</div><div class="line">    var obj1 = Singleton.getInstance()</div><div class="line">    var obj2 = Singleton.getInstance()</div><div class="line"></div><div class="line">    println(obj1)</div><div class="line">    println(obj2)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">com.shijc.hellokotlin.unit03.Singleton@355da254</div><div class="line">com.shijc.hellokotlin.unit03.Singleton@355da254</div></pre></td></tr></table></figure>
+<p>执行这段代码后，会输出如下内容，我们会发现。obj1和obj2的输出结果完全一样。这就证明了obj1和obj2是完全一样的。</p>
+<h3 id="Kotlin函数中的默认参数"><a href="#Kotlin函数中的默认参数" class="headerlink" title="Kotlin函数中的默认参数"></a>Kotlin函数中的默认参数</h3><p>Kotlin函数支持默认参数，例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class Customer(var customerName:String = &quot;Bill&quot;,var value: Float = 20.4F)&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果创建Customer的实例，可以直接使用Customer()。customerName和value的参数值就会使用Bill和20.4。</p>
+<h3 id="创建类的实例"><a href="#创建类的实例" class="headerlink" title="创建类的实例"></a>创建类的实例</h3><p>在Kotlin中创建类的实例不需要使用new关键字。因此，调用函数和创建类的实例在语法上没有区别。只能通过上下文来区分。</p>
+<h2 id="3-3类成员"><a href="#3-3类成员" class="headerlink" title="3.3类成员"></a>3.3类成员</h2><h3 id="属性的基本用法"><a href="#属性的基本用法" class="headerlink" title="属性的基本用法"></a>属性的基本用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var/val &lt;propertyName&gt;[:&lt;propertyType&gt;][=&lt;property_initializer&gt;]</div><div class="line">	[&lt;getter&gt;]</div><div class="line">	[&lt;setter&gt;]</div></pre></td></tr></table></figure>
+<p>在属性语法中，只有var/val和propertyName(属性名)是必须的，其他都是可选的。如果要引用属性，就行引用变量一样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">class Customer2&#123;</div><div class="line"></div><div class="line">    var name:String = &quot;Bill&quot;</div><div class="line">    var value:Int = 20</div><div class="line">    var flag:Boolean = true</div><div class="line"></div><div class="line">    fun getDesc()&#123;</div><div class="line">        println(&quot;name=$&#123;name&#125; value=$&#123;value&#125; flag=$&#123;flag&#125;&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="属性的getter和setter形式"><a href="#属性的getter和setter形式" class="headerlink" title="属性的getter和setter形式"></a>属性的getter和setter形式</h3><p>如果属性是只读的，需要将属性声明为val，并只添加一个getter形式，如果属性是读写的，需要使用var是声明属性，并添加getter和vsetter形式。如果getter和setter中只有一行实现代码。直接用=分割getter和代码即可。如果包含多行代码需要使用{……}处理。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">class Customer3&#123;</div><div class="line">    // 只读属性</div><div class="line">    val name:String</div><div class="line">        get() = &quot;Bill&quot;</div><div class="line"></div><div class="line">    // 读写属性</div><div class="line">    var v:Int = 20</div><div class="line">    var value:Int</div><div class="line">        get() = v</div><div class="line">        set(value)&#123;</div><div class="line">            println(&quot;value属性被设置&quot;)</div><div class="line">            v = value</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="保存属性值的字段"><a href="#保存属性值的字段" class="headerlink" title="保存属性值的字段"></a>保存属性值的字段</h3><p>在属性的getter和setter中，可以将field当做成员变量使用，也就是通过field读写属性值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class Customer4&#123;</div><div class="line">    val name:String</div><div class="line">        get() = &quot;Bill&quot;</div><div class="line"></div><div class="line">    // 读写属性</div><div class="line">    var value:Int = 0</div><div class="line">        get() = field</div><div class="line">        set(value)&#123;</div><div class="line">            println(&quot;value属性被设置&quot;)</div><div class="line">            field = value</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>修改Customer4的value值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">fun main(args: Array&lt;String&gt;) &#123;</div><div class="line">    var customer4 = Customer4()</div><div class="line">    customer4.value = 40</div><div class="line">    println(customer4.value)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">value属性被设置</div><div class="line">40</div></pre></td></tr></table></figure>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>函数既可以在类外部定义，也可以在类内部定义。如果是前者是全局函数，如果是后者是类成员函数。</p>
+<p>函数也支持默认参数值。要注意的是，带默认值的参数必须是最后几个参数，也就是说，如果某个参数带默认值。那么该参数后面的所有参数都必须有默认值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class QACommunity2&#123;</div><div class="line">    fun printQAcommunity(url:String,schema:String=&quot;http&quot;)&#123;</div><div class="line">        println(&quot;$&#123;schema&#125;://$&#123;url&#125;&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>执行代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fun main(args: Array&lt;String&gt;) &#123;</div><div class="line">    QACommunity2().printQAcommunity(&quot;shijiacheng.studio&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://shijiacheng.studio</div></pre></td></tr></table></figure>
+<p>如果我们想为下面的函数按顺序传入参数值，很简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class Person2&#123;</div><div class="line">    fun process(value: Int,name:String=&quot;Bill&quot;,age:Int=30,salary:Float=4000F)&#123;</div><div class="line">        println(&quot;value=$&#123;value&#125; name=$&#123;name&#125; age=$&#123;age&#125; salary=$&#123;salary&#125;&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fun main(args: Array&lt;String&gt;) &#123;</div><div class="line">    Person2().process(30,&quot;Bill&quot;,30,12000F)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果我们只想修改最后 一个参数的值，安装之前的思路必须每个参数的值都传一遍，很麻烦。为了解决这个问题，Kotlin允许使用命名参数传递参数值。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fun main(args: Array&lt;String&gt;) &#123;</div><div class="line">    Person2().process(30,salary = 15000F)</div><div class="line">&#125;frev</div></pre></td></tr></table></figure>
+<p>如果传入参数的参数个数不固定，就要使用可变参数了，可变参数用vararg关键字声明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">class Person3(name: String)&#123;</div><div class="line">    private var mName:String = name</div><div class="line">    fun getName():String&#123;</div><div class="line">        return mName</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Persons&#123;</div><div class="line">    fun addPersons(vararg persons:Person3):List&lt;Person3&gt;&#123;</div><div class="line">        var result = ArrayList&lt;Person3&gt;()</div><div class="line">        for(person in persons)&#123;</div><div class="line">            result.add(person)</div><div class="line">        &#125;</div><div class="line">        return result</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用addPersons方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">fun main(args: Array&lt;String&gt;) &#123;</div><div class="line">    var persons = Persons().addPersons(Person3(&quot;Bill&quot;), Person3(&quot;Jill&quot;),Person3(&quot;Mike&quot;))</div><div class="line">    for (person in persons)&#123;</div><div class="line">        println(person.getName())</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>函数单行表达式：如果Kotlin函数体只有一行代码，可以直接在函数声明后面加等号=，后面直接跟代码，这种表达方式可以省略函数返回值类型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class Person4(name: String)&#123;</div><div class="line">    private var mName:String = name</div><div class="line">    fun getName():String&#123;</div><div class="line">        return mName</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //函数单行表达式</div><div class="line">    fun getName1():String=mName</div><div class="line">    // 函数单行表达式，省略返回值类型</div><div class="line">    fun getName2() = mName</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>本地函数：在函数体内定义函数，作用域就是包含本地函数的函数体</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">fun addPerson(name: String)&#123;</div><div class="line">    //process函数作用域就是addPerson的函数体</div><div class="line">    fun process(age: Int)&#123;</div><div class="line">        println(&quot;age=$&#123;age&#125;&quot;)</div><div class="line">    &#125;</div><div class="line">    process(20)</div><div class="line">    println(&quot;name=$&#123;name&#125;&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="嵌套类"><a href="#嵌套类" class="headerlink" title="嵌套类"></a>嵌套类</h3><p>嵌套类就是类中定义的类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class Outer&#123;</div><div class="line">    private val bar:Int = 1</div><div class="line">    //嵌套类</div><div class="line">    class Nested&#123;</div><div class="line">        fun foo() = 2</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用foo方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">fun main(args: Array&lt;String&gt;) &#123;</div><div class="line">    val demo = Outer.Nested().foo()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>嵌套类还可以使用inner关键字声明，这样可以通过外部类的实例引用嵌套类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Outer2&#123;</div><div class="line">    private val bar:Int = 1</div><div class="line">    inner class Inner&#123;</div><div class="line">        fun foo() = bar</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-4修饰符（Modifiers）"><a href="#3-4修饰符（Modifiers）" class="headerlink" title="3.4修饰符（Modifiers）"></a>3.4修饰符（Modifiers）</h2><p>Kotlin中有private、protected、internal、public 4个修饰符。</p>
+<ul>
+<li>private：仅仅在类的内部可以访问</li>
+<li>protected：类似private，但在子类中也可以访问</li>
+<li>internal：在任何模块内部类都可以访问</li>
+<li>public：任何类都可以访问</li>
+</ul>
+<p>如果不指定任何修饰符，默认是public。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">open class Outer3&#123;//open表明Outer2是可继承的</div><div class="line">    private val a = 1</div><div class="line">    protected open val b = 2</div><div class="line">    internal val c = 3</div><div class="line">    val d = 4 // 默认是public</div><div class="line"></div><div class="line">    protected class Nested&#123;</div><div class="line">        public val e:Int = 5</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class SubClass:Outer3()&#123;</div><div class="line">    //无法访问父类的a常量</div><div class="line">    //可以访问b、c、d</div><div class="line">    // Nested类和e变量可以访问</div><div class="line"></div><div class="line">    override val b =5 // 重写父类的常量b</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-5类的继承"><a href="#3-5类的继承" class="headerlink" title="3.5类的继承"></a>3.5类的继承</h2><h3 id="类如何继承"><a href="#类如何继承" class="headerlink" title="类如何继承"></a>类如何继承</h3><p>Kotlin类的继承需要使用冒号（:）,冒号后需要调用父类的构造器，与Java一样，都是单继承的。要注意的是，Kotlin默认时class是final的，也就是说，默认时class不允许继承，需要显式的使用open关键字允许继承class。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">open class Parent &#123;// 需要open声明Parent，才允许其他类继承</div><div class="line">    protected var mName: String = &quot;Bill&quot;</div><div class="line"></div><div class="line">    fun getName(): String &#123;</div><div class="line">        return mName</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Child:Parent()&#123;</div><div class="line">    //Child类继承了Parent类，mName和getName在Child中都可以访问了</div><div class="line"></div><div class="line">    fun printName()&#123;</div><div class="line">        println(mName)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="重写方法"><a href="#重写方法" class="headerlink" title="重写方法"></a>重写方法</h3><p>如果要在子类中重写方法，就需要在父类相应的方法前面加open关键字，而且要在子类重写的方法前面加override关键字。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">open class Parent2 &#123;// 需要open声明Parent，才允许其他类继承</div><div class="line">    protected var mName: String = &quot;Bill&quot;</div><div class="line"></div><div class="line">    open fun getName(): String &#123;</div><div class="line">        // 只有加open关键字，getname才可以被子类的方法重写</div><div class="line">        return mName</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">open class Child2:Parent2()&#123;</div><div class="line">    //Child类继承了Parent类，mName和getName在Child中都可以访问了</div><div class="line"></div><div class="line">    fun printName()&#123;</div><div class="line">        println(getName())</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 重写父类的getname方法</div><div class="line">    override fun getName(): String &#123;</div><div class="line">        return &quot;&lt;&quot;+super.getName()+&quot;&gt;&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在调用Child2l类的getName方法，实际上执行的是Child2自身的getName方法，而不是Parent2类的getName方法。</p>
+<p>如果一个方法前加了override，那么这个方法就可以被重写了，例如Child2类的getName方法在子类中是可以被再次重写的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class MyChild2:Child2()&#123;</div><div class="line">    //再次重写getName方法</div><div class="line">    override fun getName(): String &#123;</div><div class="line">        return &quot;[&quot;+super.getName()+&quot;]&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果想阻止getName方法被子类重写，需要在override前面加final</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class MyChild3:Child2()&#123;</div><div class="line">    //再次重写getName方法</div><div class="line">    final override fun getName(): String &#123;</div><div class="line">        return &quot;[&quot;+super.getName()+&quot;]&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="重写属性"><a href="#重写属性" class="headerlink" title="重写属性"></a>重写属性</h3><p>属性的重写方式与方法类似，被重写的属性必须使用open声明，子类中重写的属性必须使用overr声明。注意的是，val属性可以被重写为var属性，但反过来不可以。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">open class Parent3&#123;</div><div class="line">    open val name:String=&quot;Bill&quot;</div><div class="line">        get() &#123;</div><div class="line">            println(&quot;获取Parent.name属性值&quot;)</div><div class="line">            return field</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">open class Child3:Parent3()&#123;</div><div class="line">    override var name:String = &quot;Mike&quot;</div><div class="line">        get() &#123;</div><div class="line">            println(&quot;获取Child3.name属性值&quot;)</div><div class="line">            return field</div><div class="line">        &#125;</div><div class="line">        set(value)&#123;</div><div class="line">            field = value</div><div class="line">            println(&quot;Child3.name被写入&quot;)</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">fun main(args: Array&lt;String&gt;) &#123;</div><div class="line">    var child = Child3()</div><div class="line">    child.name = &quot;John&quot;</div><div class="line">    println(child.name)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Child3.name被写入</div><div class="line">获取Child3.name属性值</div><div class="line">John</div></pre></td></tr></table></figure>
+<h2 id="3-6接口"><a href="#3-6接口" class="headerlink" title="3.6接口"></a>3.6接口</h2><p>接口使用interface关键字声明，一个类可以实现多个接口。实现的方法和类继承相似。而且接口中的属性和方法都是open的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">interface MyInterface&#123;</div><div class="line">    fun process()</div><div class="line">    fun getName():String&#123;</div><div class="line">        return &quot;Bill&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class MyClass2 :MyInterface&#123;</div><div class="line">    override fun process() &#123;</div><div class="line">        println(&quot;process&quot;)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    override fun getName(): String &#123;</div><div class="line">        return &quot;Mike&quot;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">fun main(args: Array&lt;String&gt;) &#123;</div><div class="line">    println(MyClass2().getName())</div><div class="line">    MyClass2().process()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在Kotlin中，允许接口的方法包含默认的方法体。对于有方法体的接口方法。并不要求一定重写该方法。也就是说getName方法可以在MyClass2中不重写。</p>
+<h2 id="3-7抽象类"><a href="#3-7抽象类" class="headerlink" title="3.7抽象类"></a>3.7抽象类</h2><p>抽象类不能被实例化，需要使用abstract关键字声明，抽象类实现接口后，接口中没有函数体的函数可以不重写（override），接口中的这些方法就自动被继承到实现接口的抽象类中，称为抽象方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">open class Base&#123;</div><div class="line">    open fun f()&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">abstract class Derived:Base()&#123;</div><div class="line">    override abstract fun f()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>抽象方法不需要使用open声明，因为抽象类本身就是可继承的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    shijiacheng
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://shijiacheng.studio/2018/05/10/helloKotlin-03/" title="第3章 类和接口">http://shijiacheng.studio/2018/05/10/helloKotlin-03/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Kotlin入门/" rel="tag"><i class="fa fa-tag"></i> Kotlin入门</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/10/helloKotlin-02/" rel="next" title="第2章 Kotlin基础知识">
+                <i class="fa fa-chevron-left"></i> 第2章 Kotlin基础知识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/10/helloKotlin-04/" rel="prev" title="第4章 枚举类和扩展">
+                第4章 枚举类和扩展 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTcwMS8xMjIzNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://7xqgfg.com1.z0.glb.clouddn.com/1467087348445.jpg"
+                alt="shijiacheng" />
+            
+              <p class="site-author-name" itemprop="name">shijiacheng</p>
+              <p class="site-description motion-element" itemprop="description">我的小小窝，在这里书写点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shijiacheng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/u/2787794175" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1类的声明"><span class="nav-number">1.</span> <span class="nav-text">3.1类的声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2构造器"><span class="nav-number">2.</span> <span class="nav-text">3.2构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主构造器"><span class="nav-number">2.1.</span> <span class="nav-text">主构造器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二构造器"><span class="nav-number">2.2.</span> <span class="nav-text">第二构造器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kotlin中的Singleton模式"><span class="nav-number">2.3.</span> <span class="nav-text">Kotlin中的Singleton模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kotlin函数中的默认参数"><span class="nav-number">2.4.</span> <span class="nav-text">Kotlin函数中的默认参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建类的实例"><span class="nav-number">2.5.</span> <span class="nav-text">创建类的实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3类成员"><span class="nav-number">3.</span> <span class="nav-text">3.3类成员</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性的基本用法"><span class="nav-number">3.1.</span> <span class="nav-text">属性的基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性的getter和setter形式"><span class="nav-number">3.2.</span> <span class="nav-text">属性的getter和setter形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保存属性值的字段"><span class="nav-number">3.3.</span> <span class="nav-text">保存属性值的字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数"><span class="nav-number">3.4.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套类"><span class="nav-number">3.5.</span> <span class="nav-text">嵌套类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4修饰符（Modifiers）"><span class="nav-number">4.</span> <span class="nav-text">3.4修饰符（Modifiers）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5类的继承"><span class="nav-number">5.</span> <span class="nav-text">3.5类的继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类如何继承"><span class="nav-number">5.1.</span> <span class="nav-text">类如何继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重写方法"><span class="nav-number">5.2.</span> <span class="nav-text">重写方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重写属性"><span class="nav-number">5.3.</span> <span class="nav-text">重写属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6接口"><span class="nav-number">6.</span> <span class="nav-text">3.6接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7抽象类"><span class="nav-number">7.</span> <span class="nav-text">3.7抽象类</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  Copyright &copy;  2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span>by Jiacheng Shi. All rights reserved.</span>
+</div>
+
+
+<div class="powered-by">
+  Design by Hexo.
+</div>
+
+<div class="theme-info">
+  Powered by Github | Alibaba Wanwang.
+</div>
+<div>
+  <span>版权声明：凡注明本站原创文章等，未经本人许可，任何人或机构不得以任何形式对本站内容进行商业用途.</span>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=57178270";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KAYlnwDWxRnTAKYqjlglgybM-gzGzoHsz", "2L4S8ChpDcRgiM5oUSMhxPvY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
