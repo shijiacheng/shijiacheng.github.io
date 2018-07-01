@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android设计模式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在过去的几年里，将Android应用程序转变成逻辑组件的方法已经逐渐成熟。很大程度上摆脱了MVC模式，转而采用更模块化、可测试的模式。 Model View Presenter (MVP) &amp;amp; Model View ViewModel (MVVM)是最广泛被采用的两种替代方案。本文不去讨论哪种方式更适合于Android应用开发，只是通过案例来看到每种模式是如何编写的。">
+<meta name="keywords" content="Android设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MVC vs. MVP vs. MVVM on Android">
+<meta property="og:url" content="http://shijiacheng.studio/2018/07/01/mvx/index.html">
+<meta property="og:site_name" content="shijiacheng&#39;s blog">
+<meta property="og:description" content="在过去的几年里，将Android应用程序转变成逻辑组件的方法已经逐渐成熟。很大程度上摆脱了MVC模式，转而采用更模块化、可测试的模式。 Model View Presenter (MVP) &amp;amp; Model View ViewModel (MVVM)是最广泛被采用的两种替代方案。本文不去讨论哪种方式更适合于Android应用开发，只是通过案例来看到每种模式是如何编写的。">
+<meta property="og:image" content="https://coding.net/u/shijiacheng/p/MVX/git/raw/master/images/井字游戏效果图.png">
+<meta property="og:image" content="https://coding.net/u/shijiacheng/p/MVX/git/raw/master/images/mvc模型角色图.png">
+<meta property="og:image" content="https://coding.net/u/shijiacheng/p/MVX/git/raw/master/images/mvp模型角色图.png">
+<meta property="og:image" content="https://coding.net/u/shijiacheng/p/MVX/git/raw/master/images/mvvm模型角色图.png">
+<meta property="og:updated_time" content="2018-07-01T11:42:21.478Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MVC vs. MVP vs. MVVM on Android">
+<meta name="twitter:description" content="在过去的几年里，将Android应用程序转变成逻辑组件的方法已经逐渐成熟。很大程度上摆脱了MVC模式，转而采用更模块化、可测试的模式。 Model View Presenter (MVP) &amp;amp; Model View ViewModel (MVVM)是最广泛被采用的两种替代方案。本文不去讨论哪种方式更适合于Android应用开发，只是通过案例来看到每种模式是如何编写的。">
+<meta name="twitter:image" content="https://coding.net/u/shijiacheng/p/MVX/git/raw/master/images/井字游戏效果图.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shijiacheng.studio/2018/07/01/mvx/"/>
+
+
+
+
+
+  <title>MVC vs. MVP vs. MVVM on Android | shijiacheng's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0025c4e3ea66bbbea3ea718610460fe7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/shijiacheng" target="_blank"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">shijiacheng's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shijiacheng.studio/2018/07/01/mvx/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shijiacheng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://7xqgfg.com1.z0.glb.clouddn.com/1467087348445.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shijiacheng's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MVC vs. MVP vs. MVVM on Android</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-01T19:36:34+08:00">
+                2018-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">Android进阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/07/01/mvx/" class="leancloud_visitors" data-flag-title="MVC vs. MVP vs. MVVM on Android">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在过去的几年里，将Android应用程序转变成逻辑组件的方法已经逐渐成熟。很大程度上摆脱了MVC模式，转而采用更模块化、可测试的模式。</p>
+<p>Model View Presenter (MVP) &amp; Model View ViewModel (MVVM)是最广泛被采用的两种替代方案。本文不去讨论哪种方式更适合于Android应用开发，只是通过案例来看到每种模式是如何编写的。</p>
+<a id="more"></a>
+<p>本文通过实现一个井字游戏，分别通过MVC、MVP、MVVM三种模式实现游戏效果。源代码已经上传到<a href="https://coding.net/u/shijiacheng/p/MVX/git" target="_blank" rel="external">仓库</a>中。</p>
+<p><img src="https://coding.net/u/shijiacheng/p/MVX/git/raw/master/images/井字游戏效果图.png" alt=""></p>
+<h2 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h2><p>Model, View, Controller将应用程序在宏观层面分为3中职责。</p>
+<h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><p>Model模型是应用程序中的数据+状态+业务逻辑。可以说是应用程序的大脑，不受View视图和Controller控制器的束缚，因此很多情况下是可以复用的。</p>
+<h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><p>View视图是Model的展现，负责呈现UI并在用户与应用程序交互时与Controller通信。在MVC架构中，视图通常很“愚蠢”，因为他们不了解底层模型，也没有对状态的理解，或者当用户通过单击按钮，键入值等进行交互时要做什么。这个想法是越少他们知道他们对模型的耦合越松散，因此他们要改变的就越灵活。</p>
+<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><p>Controller是将app粘在一起的胶水，它是应用程序中的主控制器。当View告诉Controller用户单击按钮时，Controller决定如何与Model进行相应的交互。根据Model中的数据更改， Controller可以根据需要更新View的状态。在Android应用程序中，Controller几乎总是由Activity或Fragment来担任的。</p>
+<p><strong>这就是我们的井字游戏中每个类扮演的角色</strong></p>
+<p><img src="https://coding.net/u/shijiacheng/p/MVX/git/raw/master/images/mvc模型角色图.png" alt=""></p>
+<p>让我们更详细地检查Controller。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">public class MVCTicTacToeActivity extends AppCompatActivity &#123;</div><div class="line">    private static String TAG = MVCTicTacToeActivity.class.getName();</div><div class="line"></div><div class="line">    private Board model;</div><div class="line"></div><div class="line">    private ViewGroup buttonGrid;</div><div class="line">    private View winnerPlayerViewGroup;</div><div class="line">    private TextView winnerPlayerLabel;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_mvc_tictactoe);</div><div class="line">        winnerPlayerLabel = (TextView) findViewById(R.id.winnerPlayerLabel);</div><div class="line">        winnerPlayerViewGroup = findViewById(R.id.winnerPlayerViewGroup);</div><div class="line">        buttonGrid = (ViewGroup) findViewById(R.id.buttonGrid);</div><div class="line"></div><div class="line">        model = new Board();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean onCreateOptionsMenu(Menu menu) &#123;</div><div class="line">        MenuInflater inflater = getMenuInflater();</div><div class="line">        inflater.inflate(R.menu.menu_tictactoe, menu);</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    public boolean onOptionsItemSelected(MenuItem item) &#123;</div><div class="line">        switch (item.getItemId()) &#123;</div><div class="line">            case R.id.action_reset:</div><div class="line">                reset();</div><div class="line">                return true;</div><div class="line">            default:</div><div class="line">                return super.onOptionsItemSelected(item);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void onCellClicked(View v) &#123;</div><div class="line"></div><div class="line">        Button button = (Button) v;</div><div class="line"></div><div class="line">        String tag = button.getTag().toString();</div><div class="line">        int row = Integer.valueOf(tag.substring(0,1));</div><div class="line">        int col = Integer.valueOf(tag.substring(1,2));</div><div class="line">        Log.i(TAG, &quot;Click Row: [&quot; + row + &quot;,&quot; + col + &quot;]&quot;);</div><div class="line"></div><div class="line">        Player playerThatMoved = model.mark(row, col);</div><div class="line"></div><div class="line">        if(playerThatMoved != null) &#123;</div><div class="line">            button.setText(playerThatMoved.toString());</div><div class="line">            if (model.getWinner() != null) &#123;</div><div class="line">                winnerPlayerLabel.setText(playerThatMoved.toString());</div><div class="line">                winnerPlayerViewGroup.setVisibility(View.VISIBLE);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private void reset() &#123;</div><div class="line">        winnerPlayerViewGroup.setVisibility(View.GONE);</div><div class="line">        winnerPlayerLabel.setText(&quot;&quot;);</div><div class="line"></div><div class="line">        model.restart();</div><div class="line"></div><div class="line">        for( int i = 0; i &lt; buttonGrid.getChildCount(); i++ ) &#123;</div><div class="line">            ((Button) buttonGrid.getChildAt(i)).setText(&quot;&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h4><p>MVC在分离模型和视图方面做得很好。当然，该模型可以很容易地进行测试，因为它不依赖于任何东西，并且视图在单元测试级别上没有什么可测试的。然而，控制器有一些问题。</p>
+<h4 id="Controller关注"><a href="#Controller关注" class="headerlink" title="Controller关注"></a>Controller关注</h4><ul>
+<li><em>可测试性</em> - Controller与Android API紧密联系，难以进行单元测试。</li>
+<li><em>模块化和灵活性</em> - Controller与View紧密耦合。它也可能是View的扩展。如果我们更改View，我们必须返回并更改Controller。</li>
+<li><em>维护</em> - 随着时间的推移，越来越多的代码开始转移到Controller中，使它们变得臃肿和脆弱。</li>
+</ul>
+<p>我们如何解决这个问题？MVP来拯救！</p>
+<h2 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a>MVP</h2><p>MVP将Controller断开，以便自然View/Activity耦合可以发生，而不会与其他“Controller”责任相关联。让我们再次从MVC对比开始。</p>
+<h4 id="Model-1"><a href="#Model-1" class="headerlink" title="Model"></a>Model</h4><p>与MVC相同/无变化</p>
+<h4 id="View-1"><a href="#View-1" class="headerlink" title="View"></a>View</h4><p>这里唯一的变化是Activity/Fragment现在被视为View的一部分。让Activity实现一个视图界面，以便Presnenter有一个可以编码的界面。这消除了将它耦合到任何特定的页面，并允许使用视图的mock实现进行简单的单元测试。</p>
+<h4 id="Presenter"><a href="#Presenter" class="headerlink" title="Presenter"></a>Presenter</h4><p>这实质上是MVC的Controller，除了它完全不依赖于View，只是一个接口。这解决了可测试性问题以及我们在MVC中遇到的模块化/灵活性问题。<em>实际上，MVP纯粹主义者认为Presenter不应该对任何Android API或代码有任何引用。</em></p>
+<p>我们再来看看在我们的应用程序中在MVP中的分解。</p>
+<p><img src="https://coding.net/u/shijiacheng/p/MVX/git/raw/master/images/mvp模型角色图.png" alt=""></p>
+<p>在下面更详细地看看Presenter，你会注意到的第一件事是每个动作的意图是多么简单和清晰。它不是告诉View如何显示某些东西，而只是告诉它要显示什么。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">public class TicTacToePresenter implements Presenter &#123;</div><div class="line">    private TicTacToeView view;</div><div class="line">    private Board model;</div><div class="line"></div><div class="line">    public TicTacToePresenter(TicTacToeView view)&#123;</div><div class="line">        this.view = view;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onCreate() &#123;</div><div class="line">        model = new Board();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onPause() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onResume() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onDestroy() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    public void onButtonSelected(int row, int col) &#123;</div><div class="line">        Player playerThatMoved = model.mark(row, col);</div><div class="line"></div><div class="line">        if(playerThatMoved != null) &#123;</div><div class="line">            view.setButtonText(row, col, playerThatMoved.toString());</div><div class="line"></div><div class="line">            if (model.getWinner() != null) &#123;</div><div class="line">                view.showWinner(playerThatMoved.toString());</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void onResetSelected() &#123;</div><div class="line">        view.clearWinnerDisplay();</div><div class="line">        view.clearButtons();</div><div class="line">        model.restart();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为了在不将Activity与Presenter绑定的情况下进行这项工作，我们创建了一个Activity实现的接口。在测试中，我们将基于此接口创建一个mock来测试与Presenter和View的交互。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public interface TicTacToeView &#123;</div><div class="line">    void showWinner(String winnerLabel);</div><div class="line">    void clearWinnerDisplay();</div><div class="line">    void clearButtons();</div><div class="line">    void setButtonText(int row,int col,String text);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="评估-1"><a href="#评估-1" class="headerlink" title="评估"></a>评估</h4><p>我们可以很容易地对Presenter逻辑进行单元测试，因为它没有绑定到任何Android特定的View和API，并且只要View实现<strong>*TicTacToeView*</strong>界面，我们也可以使用任何其他View。</p>
+<h4 id="Presenter的关注"><a href="#Presenter的关注" class="headerlink" title="Presenter的关注"></a>Presenter的关注</h4><ul>
+<li><em>维护</em> - 与Controller一样，Presenter随着时间的推移，倾向于收集额外的业务逻辑。在某些时候，开发者经常会发现自己拥有难以分开的笨重的Presenter。</li>
+</ul>
+<p>当然，开发人员可以谨慎的防止这种情况发生。但是，MVVM可以更好的解决这个问题。</p>
+<h2 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h2><p><a href="https://developer.android.com/topic/libraries/data-binding/index.html" target="_blank" rel="external">Android上</a>具有<a href="https://developer.android.com/topic/libraries/data-binding/index.html" target="_blank" rel="external">数据绑定功能的</a> MVVM具有易于测试和模块化的优点，同时还减少了我们必须编写的连接View +Model的代码数量。</p>
+<p>我们来看看MVVM的各个部分。</p>
+<h4 id="Model-2"><a href="#Model-2" class="headerlink" title="Model"></a>Model</h4><p>与MVC相同/无变化</p>
+<h4 id="View-2"><a href="#View-2" class="headerlink" title="View"></a>View</h4><p>该View以一种灵活的方式绑定到由viewModel来监控可观察的变量和操作。</p>
+<h4 id="ViewModel"><a href="#ViewModel" class="headerlink" title="ViewModel"></a>ViewModel</h4><p>ViewModel负责包装Model并准备View所需的可观察数据。它还为View提供了将事件传递给Model的hocks。然而，ViewModel并不依赖于View。</p>
+<p>我们的程序早MVVM模式中分解。</p>
+<p><img src="https://coding.net/u/shijiacheng/p/MVX/git/raw/master/images/mvvm模型角色图.png" alt=""></p>
+<p>让我们仔细看看这里的代码，从ViewModel开始。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">public class TicTacToeViewModel implements ViewModel &#123;</div><div class="line">    private Board model;</div><div class="line">    public final ObservableArrayMap&lt;String,String&gt; cells = new ObservableArrayMap&lt;&gt;();</div><div class="line">    public final ObservableField&lt;String&gt; winner = new ObservableField&lt;&gt;();</div><div class="line"></div><div class="line">    public TicTacToeViewModel()&#123;</div><div class="line">        model = new Board();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onCreate() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onPause() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onResume() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onDestroy() &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void onResetClick()&#123;</div><div class="line">        model.restart();</div><div class="line">        winner.set(null);</div><div class="line">        cells.clear();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void onCellClick(int row, int col)&#123;</div><div class="line">        Player player = model.mark(row,col);</div><div class="line">        cells.put(&quot;&quot;+row+col,player == null?null:player.toString());</div><div class="line">        winner.set(model.getWinner()==null?null:model.getWinner().toString());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>查看xml文件，看看这些变量和事件是如何绑定的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line">&lt;layout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;&gt;</div><div class="line"></div><div class="line">    &lt;data&gt;</div><div class="line">        &lt;import type=&quot;android.view.View&quot; /&gt;</div><div class="line">        &lt;variable</div><div class="line">            name=&quot;player&quot;</div><div class="line">            type=&quot;com.shijc.mvx.mvvm.viewmodel.TicTacToeViewModel&quot;/&gt;</div><div class="line">    &lt;/data&gt;</div><div class="line"></div><div class="line">    &lt;LinearLayout</div><div class="line">        android:id=&quot;@+id/tictactoe&quot;</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;</div><div class="line">        android:gravity=&quot;center_horizontal&quot;</div><div class="line">        android:orientation=&quot;vertical&quot;</div><div class="line">        tools:context=&quot;com.acme.tictactoe.view.TicTacToeActivity&quot;&gt;</div><div class="line"></div><div class="line">        &lt;GridLayout</div><div class="line">            android:id=&quot;@+id/buttonGrid&quot;</div><div class="line">            android:layout_width=&quot;wrap_content&quot;</div><div class="line">            android:layout_height=&quot;wrap_content&quot;</div><div class="line">            android:columnCount=&quot;3&quot;</div><div class="line">            android:rowCount=&quot;3&quot;&gt;</div><div class="line"></div><div class="line">            &lt;Button</div><div class="line">                style=&quot;@style/tictactoebutton&quot;</div><div class="line">                android:onClick=&quot;@&#123;() -&gt; player.onCellClick(0,0)&#125;&quot;</div><div class="line">                android:text=&apos;@&#123;player.cells[&quot;00&quot;]&#125;&apos; /&gt;</div><div class="line"></div><div class="line">            &lt;Button</div><div class="line">                style=&quot;@style/tictactoebutton&quot;</div><div class="line">                android:onClick=&quot;@&#123;() -&gt; player.onCellClick(0,1)&#125;&quot;</div><div class="line">                android:text=&apos;@&#123;player.cells[&quot;01&quot;]&#125;&apos; /&gt;</div><div class="line"></div><div class="line">            &lt;Button</div><div class="line">                style=&quot;@style/tictactoebutton&quot;</div><div class="line">                android:onClick=&quot;@&#123;() -&gt; player.onCellClick(0,2)&#125;&quot;</div><div class="line">                android:text=&apos;@&#123;player.cells[&quot;02&quot;]&#125;&apos; /&gt;</div><div class="line"></div><div class="line">            &lt;Button</div><div class="line">                style=&quot;@style/tictactoebutton&quot;</div><div class="line">                android:onClick=&quot;@&#123;() -&gt; player.onCellClick(1,0)&#125;&quot;</div><div class="line">                android:text=&apos;@&#123;player.cells[&quot;10&quot;]&#125;&apos; /&gt;</div><div class="line"></div><div class="line">            &lt;Button</div><div class="line">                style=&quot;@style/tictactoebutton&quot;</div><div class="line">                android:onClick=&quot;@&#123;() -&gt; player.onCellClick(1,1)&#125;&quot;</div><div class="line">                android:text=&apos;@&#123;player.cells[&quot;11&quot;]&#125;&apos; /&gt;</div><div class="line"></div><div class="line">            &lt;Button</div><div class="line">                style=&quot;@style/tictactoebutton&quot;</div><div class="line">                android:onClick=&quot;@&#123;() -&gt; player.onCellClick(1,2)&#125;&quot;</div><div class="line">                android:text=&apos;@&#123;player.cells[&quot;12&quot;]&#125;&apos; /&gt;</div><div class="line"></div><div class="line">            &lt;Button</div><div class="line">                style=&quot;@style/tictactoebutton&quot;</div><div class="line">                android:onClick=&quot;@&#123;() -&gt; player.onCellClick(2,0)&#125;&quot;</div><div class="line">                android:text=&apos;@&#123;player.cells[&quot;20&quot;]&#125;&apos; /&gt;</div><div class="line"></div><div class="line">            &lt;Button</div><div class="line">                style=&quot;@style/tictactoebutton&quot;</div><div class="line">                android:onClick=&quot;@&#123;() -&gt; player.onCellClick(2,1)&#125;&quot;</div><div class="line">                android:text=&apos;@&#123;player.cells[&quot;21&quot;]&#125;&apos; /&gt;</div><div class="line"></div><div class="line">            &lt;Button</div><div class="line">                style=&quot;@style/tictactoebutton&quot;</div><div class="line">                android:onClick=&quot;@&#123;() -&gt; player.onCellClick(2,2)&#125;&quot;</div><div class="line">                android:text=&apos;@&#123;player.cells[&quot;22&quot;]&#125;&apos; /&gt;</div><div class="line"></div><div class="line">        &lt;/GridLayout&gt;</div><div class="line"></div><div class="line"></div><div class="line">        &lt;LinearLayout</div><div class="line">            android:id=&quot;@+id/winnerPlayerViewGroup&quot;</div><div class="line">            android:layout_width=&quot;wrap_content&quot;</div><div class="line">            android:layout_height=&quot;match_parent&quot;</div><div class="line">            android:gravity=&quot;center&quot;</div><div class="line">            android:orientation=&quot;vertical&quot;</div><div class="line">            android:visibility=&quot;@&#123;player.winner == null ? View.GONE:View.VISIBLE&#125;&quot;</div><div class="line">            tools:visibility=&quot;visible&quot;&gt;</div><div class="line"></div><div class="line">            &lt;TextView</div><div class="line">                android:id=&quot;@+id/winnerPlayerLabel&quot;</div><div class="line">                android:layout_width=&quot;wrap_content&quot;</div><div class="line">                android:layout_height=&quot;wrap_content&quot;</div><div class="line">                android:layout_margin=&quot;20dp&quot;</div><div class="line">                android:textSize=&quot;40sp&quot;</div><div class="line">                android:text=&quot;@&#123;player.winner&#125;&quot;</div><div class="line">                tools:text=&quot;X&quot; /&gt;</div><div class="line"></div><div class="line">            &lt;TextView</div><div class="line">                android:layout_width=&quot;wrap_content&quot;</div><div class="line">                android:layout_height=&quot;wrap_content&quot;</div><div class="line">                android:text=&quot;Winner&quot;</div><div class="line">                android:textSize=&quot;30sp&quot; /&gt;</div><div class="line"></div><div class="line">        &lt;/LinearLayout&gt;</div><div class="line"></div><div class="line">    &lt;/LinearLayout&gt;</div><div class="line"></div><div class="line">&lt;/layout&gt;</div></pre></td></tr></table></figure>
+<h4 id="评估-2"><a href="#评估-2" class="headerlink" title="评估"></a>评估</h4><p>单元测试现在更容易，因为你真的不依赖于View。测试时，您只需要验证Model更改时是否正确设置了可观察变量。没有必要mock测试View，因为有MVP模式。</p>
+<h4 id="MVVM关注"><a href="#MVVM关注" class="headerlink" title="MVVM关注"></a>MVVM关注</h4><ul>
+<li><em>维护</em> - 由于View可以绑定到变量和表达式，因此无关的表示逻辑可能会随着时间的推移而变动，从而有效地将代码添加到我们的XML中。为了避免这种情况，总是直接从ViewModel获取值，而不是试图在视图绑定表达式中计算或派生它们。这样计算可以适当地进行单元测试。</li>
+</ul>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>MVP和MVVM在将应用程序分解为模块化单一用途组件方面比MVC做得更好，但它们也增加了应用程序的复杂性。对于只有一个或两个屏幕的非常简单的应用程序，MVC可能工作得很好。带有数据绑定的MVVM具有吸引力，因为它遵循更加反应式的编程模型，并且生成的代码更少。</p>
+<p>如果您有兴趣在实践中看到MVP和MVVM的更多示例，我鼓励您查看<a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="external">Google Architecture Blueprints</a>项目。还有很多博客文章深入探讨这几种模式</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://academy.realm.io/posts/eric-maxwell-mvc-mvp-and-mvvm-on-android" target="_blank" rel="external">https://academy.realm.io/posts/eric-maxwell-mvc-mvp-and-mvvm-on-android</a></p>
+<p><a href="https://coding.net/u/shijiacheng/p/MVX/git" target="_blank" rel="external">源码地址</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    shijiacheng
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://shijiacheng.studio/2018/07/01/mvx/" title="MVC vs. MVP vs. MVVM on Android">http://shijiacheng.studio/2018/07/01/mvx/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android设计模式/" rel="tag"><i class="fa fa-tag"></i> Android设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/20/jd-autumn-recruit-2018/" rel="next" title="京东2018秋招笔试编程题集合">
+                <i class="fa fa-chevron-left"></i> 京东2018秋招笔试编程题集合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTcwMS8xMjIzNw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://7xqgfg.com1.z0.glb.clouddn.com/1467087348445.jpg"
+                alt="shijiacheng" />
+            
+              <p class="site-author-name" itemprop="name">shijiacheng</p>
+              <p class="site-description motion-element" itemprop="description">我的小小窝，在这里书写点点滴滴。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shijiacheng" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://weibo.com/u/2787794175" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MVC"><span class="nav-number">1.</span> <span class="nav-text">MVC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Model"><span class="nav-number">1.1.</span> <span class="nav-text">Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View"><span class="nav-number">1.2.</span> <span class="nav-text">View</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Controller"><span class="nav-number">1.3.</span> <span class="nav-text">Controller</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#评估"><span class="nav-number">1.3.1.</span> <span class="nav-text">评估</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Controller关注"><span class="nav-number">1.3.2.</span> <span class="nav-text">Controller关注</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVP"><span class="nav-number">2.</span> <span class="nav-text">MVP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Model-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">Model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#View-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Presenter"><span class="nav-number">2.0.3.</span> <span class="nav-text">Presenter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#评估-1"><span class="nav-number">2.0.4.</span> <span class="nav-text">评估</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Presenter的关注"><span class="nav-number">2.0.5.</span> <span class="nav-text">Presenter的关注</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM"><span class="nav-number">3.</span> <span class="nav-text">MVVM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Model-2"><span class="nav-number">3.0.1.</span> <span class="nav-text">Model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#View-2"><span class="nav-number">3.0.2.</span> <span class="nav-text">View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ViewModel"><span class="nav-number">3.0.3.</span> <span class="nav-text">ViewModel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#评估-2"><span class="nav-number">3.0.4.</span> <span class="nav-text">评估</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MVVM关注"><span class="nav-number">3.0.5.</span> <span class="nav-text">MVVM关注</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">4.</span> <span class="nav-text">结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  Copyright &copy;  2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span>by Jiacheng Shi. All rights reserved.</span>
+</div>
+
+
+<div class="powered-by">
+  Design by Hexo.
+</div>
+
+<div class="theme-info">
+  Powered by Github | Alibaba Wanwang.
+</div>
+<div>
+  <span>版权声明：凡注明本站原创文章等，未经本人许可，任何人或机构不得以任何形式对本站内容进行商业用途.</span>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=57178270";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KAYlnwDWxRnTAKYqjlglgybM-gzGzoHsz", "2L4S8ChpDcRgiM5oUSMhxPvY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
